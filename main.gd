@@ -10,11 +10,9 @@ var events_chances = {
 	EVENTS.CREVASSE:2
 }
 
-
 func _ready():
 	randomize()
 	play_turn()
-	
 	
 func play_turn():
 	for agent in $agents.get_children():
