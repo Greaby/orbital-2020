@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://Agent.gd" type="Script" id=1]
+[ext_resource path="res://agent/Agent.gd" type="Script" id=1]
 [ext_resource path="res://agent/assets/Perso10005.png" type="Texture" id=2]
 [ext_resource path="res://agent/assets/Perso10001.png" type="Texture" id=3]
 [ext_resource path="res://agent/assets/Perso10004.png" type="Texture" id=4]
@@ -32,7 +32,7 @@
 [ext_resource path="res://agent/assets/Perso10030.png" type="Texture" id=30]
 [ext_resource path="res://agent/assets/Perso10029.png" type="Texture" id=31]
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
@@ -52,7 +52,15 @@ script = ExtResource( 1 )
 position = Vector2( -64, -288 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 3 )
+frames = SubResource( 1 )
 animation = "move"
-frame = 28
+frame = 19
 playing = true
+
+[node name="items" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="items"]
+position = Vector2( 24, -224 )
+
+[node name="Position2D2" type="Position2D" parent="items"]
+position = Vector2( 24, -296 )
