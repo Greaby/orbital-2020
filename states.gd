@@ -48,7 +48,8 @@ enum SOLS {
 	GO_AROUND,
 	JUMP,
 	ABANDON,
-	WIN
+	WIN,
+	HELP
 }
 
 enum ITEMS {
@@ -57,6 +58,24 @@ enum ITEMS {
 	PICK,
 	SHOVEL,
 	FURNACE
+}
+
+var descr = {
+	SOLS.GO: "Keep going.",
+	SOLS.REST: "Take a break.",
+	SOLS.REST_PLUS: "Use the heat of your furnace to get warm.",
+	SOLS.ATTACK_GUN: "Shoot the damn creature.",
+	SOLS.ATTACK_KNIFE: "Try and stab the thing.",
+	SOLS.ATTACK_OTHER: "Bash it with your tools.",
+	SOLS.CLIMB: "Attempt to climb your way back up.",
+	SOLS.CUT: "It's too risky, cut him loose.",
+	SOLS.PULL: "Pull him back up.",
+	SOLS.DIG_UP: "Try to dig your friend back up.",
+	SOLS.DIG: "Look for loot with your shovel.",
+	SOLS.GO_AROUND: "Go around to avoid it.",
+	SOLS.JUMP: "Attempt to jump the chasm.",
+	SOLS.ABANDON: "Leave your mate as a distraction for the beast.",
+	SOLS.HELP: "Fire a shot in the air and hope they hear you."
 }
 
 var reqs = {
@@ -73,7 +92,8 @@ var reqs = {
 	SOLS.DIG: [ITEMS.SHOVEL],
 	SOLS.GO_AROUND: [],
 	SOLS.JUMP: [],
-	SOLS.ABANDON: []
+	SOLS.ABANDON: [],
+	SOLS.HELP: [ITEMS.GUN]
 }
 
 var sol_probas = {
