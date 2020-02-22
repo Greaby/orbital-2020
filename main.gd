@@ -10,7 +10,6 @@ var events_chances = {
 	EVENTS.CREVASSE:2
 }
 
-
 func _ready():
 	randomize()
 	play_turn()
@@ -20,12 +19,11 @@ func play_turn():
 	for agent in $agents.get_children():
 		agent.remove_dialogue()
 		agent.move()
-		yield(get_tree().create_timer(randf()), "timeout")
 
 	$AnimationTimer.start()
 
-	yield(get_tree().create_timer(1), "timeout")
-	
+	yield(get_tree().create_timer(2.5), "timeout")
+
 	for agent in $agents.get_children():
 		agent.stop()
 		agent.add_dialogue("ceci est un text")

@@ -2,13 +2,15 @@ extends Node2D
 
 
 func _ready():
-	$AnimationPlayer.play("default")
+	$AnimatedSprite.play("default")
+	
 
 func move():
-	$AnimationPlayer.play("move")
+	$AnimatedSprite.play("move")
+	$AnimatedSprite.frame = randi() % 20
 
 func stop():
-	$AnimationPlayer.play("default")
+	$AnimatedSprite.play("default")
 
 
 func add_dialogue(text):
