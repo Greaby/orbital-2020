@@ -30,7 +30,9 @@ var events_probas = {
 	EVENTS.SHORTCUT: 2,
 	EVENTS.GET_OBJ: 2,
 	EVENTS.WIN: 0,
-	EVENTS.ANY: 0
+	EVENTS.ANY: 0,
+	EVENTS.HARM: 0,
+	EVENTS.KILL: 0
 }
 
 enum SOLS {
@@ -60,7 +62,23 @@ enum ITEMS {
 	FURNACE
 }
 
-var descr = {
+var event_descr = {
+	EVENTS.NO: "NO",
+	EVENTS.AVALANCHE: "AVALANCHE",
+	EVENTS.HOLE: "HOLE",
+	EVENTS.FALL: "FALL",
+	EVENTS.STORM: "STORM",
+	EVENTS.BEAST: "BEAST",
+	EVENTS.CAMP: "CAMP",
+	EVENTS.SHORTCUT: "SHORTCUT",
+	EVENTS.GET_OBJ: "GET_OBJ",
+	EVENTS.WIN: "WIN",
+	EVENTS.ANY: "ANY",
+	EVENTS.HARM: "HARM",
+	EVENTS.KILL: "KILL"
+}
+
+var sol_descr = {
 	SOLS.GO: "Keep going.",
 	SOLS.REST: "Take a break.",
 	SOLS.REST_PLUS: "Use the heat of your furnace to get warm.",
@@ -165,7 +183,7 @@ var sol_outcomes = {
 			true: EVENTS.NO
 		},
 		SOLS.GO: {
-			false: EVENTS.NO,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		}
 	},
@@ -181,8 +199,8 @@ var sol_outcomes = {
 	},
 	EVENTS.FALL: {
 		SOLS.CUT: {
-			false: EVENTS.FALL,
-			true: EVENTS.NO
+			false: EVENTS.KILL,
+			true: EVENTS.KILL
 		},
 		SOLS.CLIMB: {
 			false: EVENTS.FALL,
@@ -209,15 +227,15 @@ var sol_outcomes = {
 			true: EVENTS.NO
 		},
 		SOLS.ATTACK_KNIFE: {
-			false: EVENTS.NO,
+			false: EVENTS.HARM,
 			true: EVENTS.NO
 		},
 		SOLS.ATTACK_OTHER: {
-			false: EVENTS.NO,
+			false: EVENTS.HARM,
 			true: EVENTS.NO
 		},
 		SOLS.ABANDON: {
-			false: EVENTS.NO,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		}
 	},
@@ -227,6 +245,10 @@ var sol_outcomes = {
 			true: EVENTS.CAMP
 		},
 		SOLS.REST: {
+			false: EVENTS.CAMP,
+			true: EVENTS.CAMP
+		},
+		SOLS.REST_PLUS: {
 			false: EVENTS.CAMP,
 			true: EVENTS.CAMP
 		},
@@ -243,6 +265,18 @@ var sol_outcomes = {
 		SOLS.GO_AROUND: {
 			false: EVENTS.FALL,
 			true: EVENTS.NO,
+		}
+	},
+	EVENTS.HARM: {
+		SOLS.GO: {
+			false: EVENTS.NO,
+			true: EVENTS.NO
+		}
+	},
+	EVENTS.KILL: {
+		SOLS.GO: {
+			false: EVENTS.NO,
+			true: EVENTS.NO
 		}
 	}
 }
