@@ -18,6 +18,7 @@ func _ready():
 	
 func play_turn():
 	for agent in $agents.get_children():
+		agent.remove_dialogue()
 		agent.move()
 		yield(get_tree().create_timer(randf()), "timeout")
 
@@ -27,6 +28,7 @@ func play_turn():
 	
 	for agent in $agents.get_children():
 		agent.stop()
+		agent.add_dialogue("ceci est un text")
 	
 	var event = get_random_event()
 	print(event)

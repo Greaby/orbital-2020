@@ -53,3 +53,6 @@ color = Color( 0, 0.494118, 0.623529, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="dialogue" type="Node2D" parent="."]
+position = Vector2( -64, -288 )
