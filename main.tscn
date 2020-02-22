@@ -28,16 +28,16 @@ __meta__ = {
 [node name="agents" type="Node2D" parent="."]
 
 [node name="Agent" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 511.493, 707.27 )
+position = Vector2( 209.551, 773.503 )
 
 [node name="Agent2" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 807.529, 573.436 )
+position = Vector2( 452.989, 700.057 )
 
 [node name="Agent3" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 1133.91, 503.445 )
+position = Vector2( 718.977, 618.378 )
 
 [node name="Agent4" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 1452.54, 433.262 )
+position = Vector2( 988.915, 540.403 )
 
 [node name="NextButton" type="Button" parent="."]
 margin_left = 1526.0
