@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="End" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 666.316
+margin_top = 195.789
+margin_right = 706.316
+margin_bottom = 209.789
+text = "Win"
+__meta__ = {
+"_edit_use_anchors_": false
+}
