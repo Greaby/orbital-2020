@@ -55,14 +55,20 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.5, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.5, 0.6, 0.8, 10.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "change_terrain"
 }, {
 "args": [  ],
+"method": "hide_items"
+}, {
+"args": [  ],
 "method": "animation_mountain"
+}, {
+"args": [  ],
+"method": "show_items"
 } ]
 }
 tracks/4/type = "method"
@@ -107,7 +113,7 @@ __meta__ = {
 }
 
 [node name="terrain" type="Sprite" parent="."]
-position = Vector2( 1419.56, 1004.42 )
+position = Vector2( 1031.41, 1135.77 )
 texture = ExtResource( 4 )
 
 [node name="agents" type="Node2D" parent="."]
@@ -132,9 +138,10 @@ position = Vector2( 0, -3.09082 )
 z_index = 200
 
 [node name="ColorFade" type="ColorRect" parent="Node2D"]
+visible = false
 margin_right = 1911.0
 margin_bottom = 1077.0
-color = Color( 0, 0, 0, 0 )
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

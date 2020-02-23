@@ -38,6 +38,14 @@ func animation_mountain():
 	$BackgroundTween.interpolate_property($Background, "position", $Background.position, $Background.position + Vector2(0, 40), 10, Tween.TRANS_LINEAR)
 	$BackgroundTween.start()
 
+func hide_items():
+	for agent in get_agents():
+		agent.hide_items_ui()
+
+func show_items():
+	for agent in get_agents():
+		agent.display_items_ui()
+
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
 	

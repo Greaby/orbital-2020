@@ -55,7 +55,7 @@ position = Vector2( -64, -288 )
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "move"
-frame = 23
+frame = 12
 playing = true
 
 [node name="items" type="Node2D" parent="."]
