@@ -65,6 +65,23 @@ tracks/3/keys = {
 "method": "animation_mountain"
 } ]
 }
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 3, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "display_dialogue"
+}, {
+"args": [  ],
+"method": "hide_dialogue"
+} ]
+}
 
 [node name="main" type="Node2D"]
 script = ExtResource( 2 )
@@ -107,16 +124,6 @@ position = Vector2( 790.449, 763.242 )
 [node name="Agent4" parent="agents" instance=ExtResource( 7 )]
 position = Vector2( 968.587, 699.232 )
 
-[node name="Night" type="ColorRect" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
-color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tween" type="Tween" parent="Night"]
-
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, -3.09082 )
@@ -131,6 +138,16 @@ color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Night" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Night"]
 
 [node name="Time" type="Label" parent="."]
 margin_right = 40.0

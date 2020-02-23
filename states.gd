@@ -219,12 +219,12 @@ var sol_outcomes = {
 	},
 	EVENTS.STORM: {
 		SOLS.REST: {
-			false: EVENTS.KILL,
-			true: EVENTS.DELAY_LONG
+			false: EVENTS.DELAY_LONG,
+			true: EVENTS.DELAY
 		},
 		SOLS.GO: {
 			false: EVENTS.FALL,
-			true: EVENTS.DELAY
+			true: EVENTS.DELAY_LONG
 		}
 	},
 	EVENTS.BEAST: {
@@ -271,6 +271,121 @@ var sol_outcomes = {
 		SOLS.GO_AROUND: {
 			false: EVENTS.DELAY,
 			true: EVENTS.DELAY,
+		}
+	},
+}
+
+var sols_dialogue = {
+	EVENTS.NO: {
+		SOLS.REST: {
+			false: "Je n'arrive pas à dormir...",
+			true: "Cette pause était nécessaire."
+		},
+		SOLS.REST_PLUS: {
+			false: "Ce réchaud faiblit; je n'arrive pas à me réchauffer.",
+			true: "Quel bonheur d'avoir un peu de chaleur dans cet enfer enneigé."
+		},
+		SOLS.GO: {
+			false: null,
+			true: "Continuons."
+		},
+		SOLS.HELP: {
+			false: "Personne n'a entendu...",
+			true: "J'entends des gens!'"
+		},
+		SOLS.WIN: {
+			false: null,
+			true: "Je suis sauvé!"
+		}
+	},
+	EVENTS.AVALANCHE: {
+		SOLS.DIG_UP: {
+			false: "Je ne le trouve pas!",
+			true: "Quelle chance que nous avions cette pelle."
+		},
+		SOLS.GO: {
+			false: null,
+			true: "Il est condamné. Nous ne pouvons pas perdre plus de temps.",
+		}
+	},
+	EVENTS.HOLE: {
+		SOLS.JUMP: {
+			false: "C'était une terrible erreur.",
+			true: "Ceci aurait pu finir très mal."
+		},
+		SOLS.GO_AROUND: {
+			false: null,
+			true: "Nous avons perdu du temps, mais nous n'avions pas le choix."
+		}
+	},
+	EVENTS.FALL: {
+		SOLS.CUT: {
+			false: null,
+			true: "Jamais je ne me pardonnerai ceci."
+		},
+		SOLS.CLIMB: {
+			false: "Il n'a rien laché, mais c'était trop dur.",
+			true: "Ce n'est pas passé loin."
+		},
+		SOLS.PULL: {
+			false: "Nous avons tout essayé...",
+			true: "Je ne pensais pas pouvoir le rattraper."
+		}
+	},
+	EVENTS.STORM: {
+		SOLS.REST: {
+			false: "Cette tempête était interminable.",
+			true: "Le vent se calme. Nous pouvons continuer."
+		},
+		SOLS.GO: {
+			false: "Nous ne pouvions rien voir dans cette tempête.",
+			true: "Nous sommes enfin sortis."
+		}
+	},
+	EVENTS.BEAST: {
+		SOLS.ATTACK_GUN: {
+			false: "Comment avons-nous pu le rater?",
+			true: "HAAA! Prends ça!"
+		},
+		SOLS.ATTACK_KNIFE: {
+			false: "Il m'a presque dévoré.",
+			true: "Ce couteau m'a sauvé la vie."
+		},
+		SOLS.ATTACK_OTHER: {
+			false: "Ce n'est vraiment pas une arme pratique.",
+			true: "Je n'arrive pas à croire que ça a marché."
+		},
+		SOLS.ABANDON: {
+			false: null,
+			true: "Je ne peux pas regarder..."
+		}
+	},
+	EVENTS.CAMP: {
+		SOLS.DIG: {
+			false: "Pas de chance cette fois.",
+			true: "J'ai trouvé quelque chose!"
+		},
+		SOLS.REST: {
+			false: "Je n'arrive pas à dormir...",
+			true: "Cette pause était nécessaire."
+		},
+		SOLS.REST_PLUS: {
+			false: "Ce réchaud faiblit; je n'arrive pas à me réchauffer.",
+			true: "Quel bonheur d'avoir un peu de chaleur dans cet enfer enneigé."
+		},
+		SOLS.GO: {
+			false: null,
+			true: "Continuons."
+		}
+	},
+	EVENTS.SHORTCUT: {
+		SOLS.GO: {
+			false: "C'était plus difficile que j'imaginais",
+			true: "Regardez l'avance qu'on a pris!"
+		},
+		SOLS.GO_AROUND: {
+			false: null,
+			true: "Ce n'est pas le moment de prendre des risques qui pourraient nous coûter.",
 		}
 	},
 }

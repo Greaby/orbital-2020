@@ -16,6 +16,7 @@ var textures = {
 	States.ITEMS.SHOVEL: "res://items/assets/outils-01.png"
 }
 
+
 func set_id(_id):
 	id = _id
 	var texture = textures[id]
@@ -26,8 +27,14 @@ func _process(delta):
 	if drag_mouse and not is_queued_for_deletion():
 		global_position = get_viewport().get_mouse_position()
 
+
+
+func _input(event):
+	pass
+
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
+		print(event)
 		if event.is_pressed():
 			if not drag_mouse:
 				last_position = position
