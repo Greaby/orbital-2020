@@ -2,7 +2,7 @@ extends Node2D
 
 export(int) var steps_to_win = 20
 # Current time as hour of the day
-var current_time = 16.0
+var current_time = 5.0
 var night_alpha = 0
 
 # Fatigue to add on each round
@@ -206,6 +206,7 @@ func _on_Event_selected_option(event, option):
 	var success_chance = States.sol_probas[event].get(option, null)
 	var success = randi() % 100 <= success_chance
 	var next_event = States.sol_outcomes[event][option][success]
+	var outcome_description = States.outcomes_descr.get(option, null)
 	
 	if success:
 		print("Roll successful")
@@ -216,10 +217,14 @@ func _on_Event_selected_option(event, option):
 	mem_next_event = success
 	mem_chosen = option
 	
-	var round_duration = run_event(next_event)
-	pass_time(round_duration)
-	
-	play_turn()
+	if outcome_description:
+		$Event.show_outcome(
+			option,
+			outcome_description[0 if success or outcome_description.size() == 1 else 1],
+			next_event
+		)
+	else:
+		_on_Event_outcome_continue(next_event)
 	
 func rest_agents(rest_value):
 	print("Resting agents with rest value ", rest_value)
@@ -271,3 +276,9 @@ func run_event(event):
 			time = shortcut_time
 			
 	return time
+
+
+func _on_Event_outcome_continue(next_event):
+	var round_duration = run_event(next_event)
+	pass_time(round_duration)
+	play_turn()

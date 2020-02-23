@@ -160,6 +160,9 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="Night"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Time" type="Label" parent="."]
 margin_right = 40.0
@@ -167,4 +170,5 @@ margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="outcome_continue" from="Event" to="." method="_on_Event_outcome_continue"]
 [connection signal="selected_option" from="Event" to="." method="_on_Event_selected_option"]

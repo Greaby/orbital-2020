@@ -84,22 +84,68 @@ var event_descr = {
 }
 
 var sol_descr = {
-	SOLS.GO: "Continuer à marcher",
+	SOLS.GO: "Continuer à avancer",
 	SOLS.REST: "Faire une pause",
-	SOLS.REST_PLUS: "Se réchauffer à la chaleur du réchaud",
+	SOLS.REST_PLUS: "Utiliser le réchaud pour se réchauffer",
 	SOLS.ATTACK_GUN: "Tirer sur la créature",
 	SOLS.ATTACK_KNIFE: "Attaquer la créature avec le couteau",
 	SOLS.ATTACK_OTHER: "Frapper la créature avec un outil",
 	SOLS.CLIMB: "Essayer d'escalader",
 	SOLS.CUT: "C'est trop risqué. Couper la corde",
-	SOLS.PULL: "Essayer de le tirer",
+	SOLS.PULL: "Tirer sur la corde pour essayer de le remonter",
 	SOLS.DIG_UP: "Pelleter la neige pour essayer de le sortir de là",
-	SOLS.DIG: "Chercher des objets avec votre pelle",
+	SOLS.DIG: "Chercher des objets avec la pelle",
 	SOLS.GO_AROUND: "La contourner",
 	SOLS.JUMP: "Essayer de sauter par-dessus la crevasse",
 	SOLS.ABANDON: "Abandonner un compagnon pour distraire la créature",
 	SOLS.HELP: "Tirer en l'air en espérant que quelqu'un vous entende",
 	SOLS.WIN: "Remettre le message"
+}
+
+var outcomes_descr = {
+	SOLS.REST_PLUS: [
+		"La chaleur du réchaud vous détend et vous aide à vous reposer."
+	],
+	SOLS.ATTACK_GUN: [
+		"Le coup de feu est assourdissant. La créature s'effondre.",
+		"Le coup de feu est assourdissant. Vous avez manqué votre coup, la créature bondit et dévore l'un de vos malheureux compagnons. Vous prenez vos jambes à votre cou."
+	],
+	SOLS.ATTACK_KNIFE: [
+		"Vous tuez la créature avec le couteau.",
+		"Vous essayez de tuer la créature avec le couteau mais elle est plus forte."
+	],
+	SOLS.ATTACK_OTHER: [
+		"Vous frappez la créature avec votre outil.",
+		"Vous essayez d'attaquer la créature avec votre outil mais elle est plus forte.'"
+	],
+	SOLS.CLIMB: [
+		"Vous escaladez la paroi.",
+		"Vous essayez d'escaladez la paroi mais vous manquez une prise et chutez.'"
+	],
+	SOLS.CUT: [
+		"Vous avez coupé la corde, oups."
+	],
+	SOLS.PULL: [
+		"Vous tirez sur la corde et arrivez à le remonter.",
+		"Vous tirez sur la corde pour essayer de le remonter mais c'est trop difficile."
+	],
+	SOLS.DIG_UP: [
+		"Après plusieurs heures passées à chercher et creuser, vous retrouvez votre compagnon",
+		"Aprés plusieurs heures passées à chercher et creuser, vous n'arrivez pas à retrouver votre compagnon'"
+	],
+	SOLS.DIG: [
+		"TODO",
+		"TODO"
+	],
+	SOLS.GO_AROUND: [
+		"TODO"	
+	],
+	SOLS.JUMP: [
+		"TODO", "TODO"
+	],
+	SOLS.ABANDON: [
+		"TODO"	
+	]
 }
 
 var reqs = {
