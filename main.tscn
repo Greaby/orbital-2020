@@ -96,6 +96,16 @@ position = Vector2( 790.449, 763.242 )
 [node name="Agent4" parent="agents" instance=ExtResource( 7 )]
 position = Vector2( 968.587, 699.232 )
 
+[node name="Night" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Night"]
+
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, -3.09082 )
@@ -104,6 +114,10 @@ position = Vector2( 0, -3.09082 )
 margin_right = 1911.0
 margin_bottom = 1077.0
 color = Color( 0, 0, 0, 0 )
+
+[node name="Time" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
