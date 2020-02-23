@@ -1,6 +1,8 @@
 extends Node2D
 
 export(int) var steps_to_win = 20
+# Current time as hour of the day
+var current_time = 5.0
 
 # Fatigue to add on each round
 var regular_strain = 10
@@ -14,6 +16,10 @@ var pentes = [
 	"res://terrain/pente-02.png",
 	"res://terrain/pente-03.png"
 ]
+
+var delay_time = 1.5
+var delay_time_long = 2
+var shortcut_time = 0.5
 
 func _ready():
 	randomize()
@@ -41,24 +47,38 @@ func play_turn():
 	
 	add_fatigue_to_agents(regular_strain)
 	
-	var event = get_random_event()
-	print("outcomes ", States.sol_outcomes[event])
-	var options = States.sol_outcomes[event]
-	var available_options = []
+	show_event(get_random_event())
 	
-	for option in options:
+func show_event(event):
+	var options = States.sol_outcomes[event]
+	var available_options = {}
+	var event_description = States.event_descr.get(event)
+	var event_title = event_description[0] if event_description else "Titre"
+	var event_text = event_description[1] if event_description else "Texte"
+	
+	for option in options:		
 		# If this action has no way of happening, skip it
 		if not States.sol_probas[event].get(option, null):
 			continue
 		
 		# Check if any of the agents has the right tools to execute the action
 		var items = States.reqs.get(option, [])
-		if items and not has_any_item(items):
-			continue
+		var items_descriptions = PoolStringArray()
+		for item in items:
+			items_descriptions.append(States.items_descr[item])
 			
-		available_options.append(option)
+		var enabled = not items or has_any_item(items)
+		var needed_objects = items_descriptions.join(", ")
+		var description = States.sol_descr[option] + (" (nécessite " + needed_objects + " )" if not enabled else "")
+		
+		var option_dict = {
+			"enabled": enabled,
+			"description": description
+		}
+		
+		available_options[option] = option_dict
 	
-	$Event.spawn(event, "Titre", "Texte", available_options)
+	$Event.spawn(event, event_title, event_text, available_options)
 
 func has_any_item(items):
 	for agent in get_agents():
@@ -103,6 +123,11 @@ func _on_Event_selected_option(event, option):
 	var success = randi() % 100 <= success_chance
 	var next_event = States.sol_outcomes[event][option][success]
 	
+	if success:
+		print("Roll successful")
+	else:
+		print("Roll failed")
+	
 	run_event(next_event)
 		
 	play_turn()
@@ -114,6 +139,13 @@ func rest_agents(rest_value):
 		var new_fatigue = max(0, agent.fatigue - rest_value)
 		agent.set_fatigue(new_fatigue)
 		
+func tire_agents(tire_value):
+	print("Tiring agents with rest value ", tire_value)
+	
+	for agent in get_agents():
+		var new_fatigue = min(100, agent.fatigue + tire_value)
+		agent.set_fatigue(new_fatigue)
+		
 func add_fatigue_to_agents(strain):
 	print("Adding strain to agents ", strain)
 	for agent in get_agents():
@@ -122,11 +154,20 @@ func add_fatigue_to_agents(strain):
 		agent.set_fatigue(new_fatigue)
 	
 func kill_random_agent():
-	var agent_id = randi() % get_agents().size() - 1
-	$agents.remove_child($agents.get_child(agent_id))
+	var agents = get_agents()
+	
+	if agents:
+		var agent_id = randi() % (agents.size() - 1)
+		print("Killing agent ", agent_id)
+		$agents.remove_child($agents.get_child(agent_id))
+		
+func delay(time):
+	current_time += time
 	
 func run_event(event):
 	print("Running event ", event)
+	var time = 1
+	
 	match event:
 		States.EVENTS.REST:
 			rest_agents(rest_value_regular)
@@ -134,3 +175,13 @@ func run_event(event):
 			rest_agents(rest_value_plus)
 		States.EVENTS.KILL:
 			kill_random_agent()
+		States.EVENTS.DELAY:
+			time = delay_time
+		States.EVENTS.DELAY_LONG:
+			time = delay_time_long
+		States.EVENTS.ADD_FATIGUE:
+			tire_agents(5)
+		States.EVENTS.GAIN_TIME:
+			time = shortcut_time
+			
+	return time

@@ -7,6 +7,9 @@ func set_fatigue(fatigue_):
 	print("Setting agent fatigue to ", fatigue_)
 	fatigue = fatigue_
 	$FatigueLabel.text = "Fatigue: " + str(fatigue_)
+	
+	if fatigue_ >= 100:
+		queue_free()
 
 func _ready():
 	$AnimatedSprite.play("default")

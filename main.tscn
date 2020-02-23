@@ -63,4 +63,5 @@ position = Vector2( 968.587, 699.232 )
 
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
+position = Vector2( 0, -3.09082 )
 [connection signal="selected_option" from="Event" to="." method="_on_Event_selected_option"]

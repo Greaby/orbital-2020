@@ -1,37 +1,37 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 enum EVENTS {
 	NO = -1,
-	AVALANCHE,
-	HOLE,
-	FALL,
-	STORM,
-	BEAST,
-	CAMP,
-	SHORTCUT,
-	GET_OBJ,
-	WIN,
-	ANY,
-	REST,
-	REST_PLUS,
-	KILL,
-	HARM,
+	AVALANCHE, # 0
+	HOLE, # 1
+	FALL, # 2
+	STORM, # 3
+	BEAST, # 4
+	CAMP, # 5
+	SHORTCUT, # 6
+	GET_OBJ, # 7
+	WIN, # 8
+	ANY, # 9
+	REST, # 10
+	REST_PLUS, # 11
+	KILL, # 12
+	HARM, # 13
+	DELAY, # 14
+	DELAY_LONG, # 15
+	GAIN_TIME, # 16
+	ADD_FATIGUE, # 17
+	PICKUP_ITEM, # 18
 }
 
 var events_probas = {
-	EVENTS.NO: 30,
+	EVENTS.NO: 15,
 	EVENTS.AVALANCHE: 2,
-	EVENTS.HOLE: 2,
-	EVENTS.FALL: 2,
+	EVENTS.HOLE: 5,
+	EVENTS.FALL: 10,
 	EVENTS.STORM: 2,
-	EVENTS.BEAST: 2,
+	EVENTS.BEAST: 10,
 	EVENTS.CAMP: 2,
-	EVENTS.SHORTCUT: 2,
+	EVENTS.SHORTCUT: 8,
 	EVENTS.WIN: 0,
 	EVENTS.ANY: 0,
 	EVENTS.HARM: 0,
@@ -65,39 +65,41 @@ enum ITEMS {
 	FURNACE
 }
 
+var items_descr = {
+	ITEMS.GUN: "pistolet",
+	ITEMS.KNIFE: "couteau",
+	ITEMS.PICK: "piolet",
+	ITEMS.SHOVEL: "pelle",
+	ITEMS.FURNACE: "réchaud"
+}
+
 var event_descr = {
-	EVENTS.NO: "NO",
-	EVENTS.AVALANCHE: "AVALANCHE",
-	EVENTS.HOLE: "HOLE",
-	EVENTS.FALL: "FALL",
-	EVENTS.STORM: "STORM",
-	EVENTS.BEAST: "BEAST",
-	EVENTS.CAMP: "CAMP",
-	EVENTS.SHORTCUT: "SHORTCUT",
-	EVENTS.GET_OBJ: "GET_OBJ",
-	EVENTS.WIN: "WIN",
-	EVENTS.ANY: "ANY",
-	EVENTS.HARM: "HARM",
-	EVENTS.KILL: "KILL"
+	EVENTS.AVALANCHE: ["Avalanche", "Une avalanche vous tombe dessus"],
+	EVENTS.HOLE: ["Crevasse", "Vous arrivez à une crevasse"],
+	EVENTS.FALL: ["Chute", "Quelqu'un est tombé"],
+	EVENTS.STORM: ["Tempête", "Il y a une tempête"],
+	EVENTS.BEAST: ["Créature", "Une créature vous attaque"],
+	EVENTS.CAMP: ["Camp abandonné", "Vous arrivez à un camp abandonné"],
+	EVENTS.SHORTCUT: ["Raccourci", "Vous voyez un raccourci"],
 }
 
 var sol_descr = {
-	SOLS.GO: "Keep going.",
-	SOLS.REST: "Take a break.",
-	SOLS.REST_PLUS: "Use the heat of your furnace to get warm.",
-	SOLS.ATTACK_GUN: "Shoot the damn creature.",
-	SOLS.ATTACK_KNIFE: "Try and stab the thing.",
-	SOLS.ATTACK_OTHER: "Bash it with your tools.",
-	SOLS.CLIMB: "Attempt to climb your way back up.",
-	SOLS.CUT: "It's too risky, cut him loose.",
-	SOLS.PULL: "Pull him back up.",
-	SOLS.DIG_UP: "Try to dig your friend back up.",
-	SOLS.DIG: "Look for loot with your shovel.",
-	SOLS.GO_AROUND: "Go around to avoid it.",
-	SOLS.JUMP: "Attempt to jump the chasm.",
-	SOLS.ABANDON: "Leave your mate as a distraction for the beast.",
-	SOLS.HELP: "Fire a shot in the air and hope they hear you.",
-	SOLS.WIN: "Deliver the message."
+	SOLS.GO: "Continuer à marcher",
+	SOLS.REST: "Faire une pause",
+	SOLS.REST_PLUS: "Se réchauffer à la chaleur du réchaud",
+	SOLS.ATTACK_GUN: "Tirer sur la créature",
+	SOLS.ATTACK_KNIFE: "Attaquer la créature avec le couteau",
+	SOLS.ATTACK_OTHER: "Frapper la créature avec un outil",
+	SOLS.CLIMB: "Essayer d'escalader",
+	SOLS.CUT: "C'est trop risqué. Couper la corde",
+	SOLS.PULL: "Essayer de le tirer",
+	SOLS.DIG_UP: "Pelleter la neige pour essayer de le sortir de là",
+	SOLS.DIG: "Chercher des objets avec votre pelle",
+	SOLS.GO_AROUND: "La contourner",
+	SOLS.JUMP: "Essayer de sauter par-dessus la crevasse",
+	SOLS.ABANDON: "Abandonner un compagnon pour distraire la créature",
+	SOLS.HELP: "Tirer en l'air en espérant que quelqu'un vous entende",
+	SOLS.WIN: "Remettre le message"
 }
 
 var reqs = {
@@ -120,8 +122,8 @@ var reqs = {
 
 var sol_probas = {
 	EVENTS.NO: {
-		SOLS.REST: 50,
-		SOLS.REST_PLUS: 75,
+		SOLS.REST: 100,
+		SOLS.REST_PLUS: 100,
 		SOLS.GO: 100
 	},
 	EVENTS.AVALANCHE: {
@@ -170,7 +172,7 @@ var sol_outcomes = {
 		},
 		SOLS.GO: {
 			false: EVENTS.NO,
-			true: EVENTS.ANY
+			true: EVENTS.NO
 		},
 		SOLS.HELP: {
 			false: EVENTS.NO,
@@ -188,17 +190,17 @@ var sol_outcomes = {
 		},
 		SOLS.GO: {
 			false: EVENTS.KILL,
-			true: EVENTS.NO
+			true: EVENTS.KILL,
 		}
 	},
 	EVENTS.HOLE: {
 		SOLS.JUMP: {
 			false: EVENTS.KILL,
-			true: EVENTS.NO
+			true: EVENTS.ADD_FATIGUE
 		},
 		SOLS.GO_AROUND: {
-			false: EVENTS.KILL,
-			true: EVENTS.NO
+			false: EVENTS.DELAY,
+			true: EVENTS.DELAY
 		}
 	},
 	EVENTS.FALL: {
@@ -212,17 +214,17 @@ var sol_outcomes = {
 		},
 		SOLS.PULL: {
 			false: EVENTS.KILL,
-			true: EVENTS.NO
+			true: EVENTS.ADD_FATIGUE
 		}
 	},
 	EVENTS.STORM: {
 		SOLS.REST: {
-			false: EVENTS.STORM,
-			true: EVENTS.NO
+			false: EVENTS.KILL,
+			true: EVENTS.DELAY_LONG
 		},
 		SOLS.GO: {
 			false: EVENTS.FALL,
-			true: EVENTS.NO
+			true: EVENTS.DELAY
 		}
 	},
 	EVENTS.BEAST: {
@@ -245,16 +247,16 @@ var sol_outcomes = {
 	},
 	EVENTS.CAMP: {
 		SOLS.DIG: {
-			false: EVENTS.CAMP,
-			true: EVENTS.CAMP
+			false: EVENTS.NO,
+			true: EVENTS.PICKUP_ITEM
 		},
 		SOLS.REST: {
-			false: EVENTS.CAMP,
-			true: EVENTS.CAMP
+			false: EVENTS.NO,
+			true: EVENTS.REST
 		},
 		SOLS.REST_PLUS: {
-			false: EVENTS.CAMP,
-			true: EVENTS.CAMP
+			false: EVENTS.NO,
+			true: EVENTS.REST_PLUS
 		},
 		SOLS.GO: {
 			false: EVENTS.NO,
@@ -263,26 +265,14 @@ var sol_outcomes = {
 	},
 	EVENTS.SHORTCUT: {
 		SOLS.GO: {
-			false: EVENTS.NO,
-			true: EVENTS.NO
+			false: EVENTS.FALL,
+			true: EVENTS.GAIN_TIME
 		},
 		SOLS.GO_AROUND: {
-			false: EVENTS.FALL,
-			true: EVENTS.NO,
+			false: EVENTS.DELAY,
+			true: EVENTS.DELAY,
 		}
 	},
-	EVENTS.HARM: {
-		SOLS.GO: {
-			false: EVENTS.NO,
-			true: EVENTS.NO
-		}
-	},
-	EVENTS.KILL: {
-		SOLS.GO: {
-			false: EVENTS.NO,
-			true: EVENTS.NO
-		}
-	}
 }
 
 func next(state, solution, items):
