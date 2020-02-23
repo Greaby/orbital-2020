@@ -9,12 +9,21 @@ var rest_value_regular = 5
 # Fatigue to heal on each break with furnace
 var rest_value_plus = 8
 
+var pentes = [
+	"res://terrain/pente-01.png",
+	"res://terrain/pente-02.png",
+	"res://terrain/pente-03.png"
+]
+
 func _ready():
 	randomize()
 	init_items()
 	play_turn()
 	
 func play_turn():
+	$terrain.texture = load(pentes[randi() % pentes.size()])
+	$AnimationPlayer.play("move")
+	
 	$Event.discard()
 	
 	for agent in get_agents():
