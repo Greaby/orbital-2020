@@ -17,6 +17,14 @@ var mem_curr_event = null
 var mem_next_event = null
 var mem_chosen = null
 var dialogue_agent = null
+var dialogue_queue = []
+
+var progress = {
+	"night" : false,
+	"distance" : 0,
+	"death" : 4,
+	"health" : [0, 0, 0, 0],
+}
 
 var pentes = [
 	"res://terrain/pente-01.png",
@@ -50,23 +58,48 @@ func show_items():
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
 	
-func display_dialogue():
+func display_dialogue(type):
 	var agents = get_agents()
 	dialogue_agent = agents[randi() % len(agents)]
 	var temp = null
 	
-	if mem_curr_event != null:
-		temp = States.sols_dialogue.get(mem_curr_event)
-	
-	if temp != null:
-		temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
+	if type == 0:
+		if mem_curr_event != null:
+			temp = States.sols_dialogue.get(mem_curr_event)
 		
-	if temp != null:
-		temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
-	
+		if temp != null:
+			temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
+			
+		if temp != null:
+			temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
+		
+	elif type == 1:
+		print(progress)
+		if current_step / steps_to_win > progress["distance"]: # DISTANCE
+			enqueue_line(States.progress_dialogue["distance"][progress["distance"]])
+			progress["distance"] = progress["distance"] + 1
+		if !progress["night"] and night_alpha > 0.8: # NIGHT
+			enqueue_line(States.progress_dialogue["night"])
+			progress["night"] = true
+		elif len(get_agents()) < progress["death"]: # DEATH
+			progress["death"] = len(get_agents())
+			enqueue_line(States.progress_dialogue['death'][4 - len(get_agents())])
+		else:
+			for i in range(len(get_agents())):
+				if get_agents()[i].fatigue > progress["health"][i] * 25:
+					enqueue_line(States.progress_dialogue["health"][int(get_agents()[i].fatigue / 25)])
+					progress["health"][i] = progress["health"][i] + 1
+					
+		if len(dialogue_queue):
+			temp = dialogue_queue.pop_front()
+
 	if temp != null:
 		dialogue_agent.add_dialogue(temp)
-	
+		
+func enqueue_line(lines):
+	var idx = randi() % len(lines)
+	dialogue_queue.append(lines[idx])
+		
 func hide_dialogue():
 	dialogue_agent.remove_dialogue()
 	
@@ -149,7 +182,7 @@ func show_event(event):
 			
 		var enabled = not items or has_any_item(items)
 		var needed_objects = items_descriptions.join(", ")
-		var description = States.sol_descr[option] + (" (nécessite " + needed_objects + " )" if not enabled else "")
+		var description = States.sol_descr[option] + (" (nécessite " + needed_objects + ")." if not enabled else ".")
 		
 		var option_dict = {
 			"enabled": enabled,
@@ -235,6 +268,13 @@ func tire_agents(tire_value):
 		var new_fatigue = min(100, agent.fatigue + tire_value)
 		agent.set_fatigue(new_fatigue)
 		
+func tire_agent(agent, tire_value):
+	var new_fatigue = min(100, agent.fatigue + tire_value)
+	agent.set_fatigue(new_fatigue)
+	
+func get_random_agent():
+	return self.get_agents()[randi() % (self.get_agents().size() - 1)]
+		
 func add_fatigue_to_agents(strain):
 	print("Adding strain to agents ", strain)
 	for agent in get_agents():
@@ -249,6 +289,7 @@ func kill_random_agent():
 		var agent_id = randi() % (agents.size() - 1)
 		print("Killing agent ", agent_id)
 		$agents.remove_child($agents.get_child(agent_id))
+		progress["health"].remove(agent_id)
 	
 	if agents.size() == 1:
 		get_tree().change_scene("res://GameOver.tscn")
@@ -272,9 +313,10 @@ func run_event(event):
 			tire_agents(5)
 		States.EVENTS.GAIN_TIME:
 			time = shortcut_time
+		States.EVENTS.HARM:
+			tire_agent(get_random_agent(), 10)
 			
 	return time
-
 
 func _on_Event_outcome_continue(next_event):
 	var round_duration = run_event(next_event)
