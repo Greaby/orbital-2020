@@ -1,6 +1,7 @@
 extends Node2D
 
 export(int) var steps_to_win = 20
+var current_step = 1
 # Current time as hour of the day
 var current_time = 5.0
 var night_alpha = 0
@@ -278,4 +279,9 @@ func run_event(event):
 func _on_Event_outcome_continue(next_event):
 	var round_duration = run_event(next_event)
 	pass_time(round_duration)
+	current_step += 1
+	
+	if current_step == steps_to_win:
+		get_tree().change_scene("res://End.tscn")
+	
 	play_turn()
