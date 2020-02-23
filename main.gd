@@ -149,7 +149,7 @@ func show_event(event):
 			
 		var enabled = not items or has_any_item(items)
 		var needed_objects = items_descriptions.join(", ")
-		var description = States.sol_descr[option] + (" (nécessite " + needed_objects + " )" if not enabled else "")
+		var description = States.sol_descr[option] + (" (nécessite " + needed_objects + ")." if not enabled else ".")
 		
 		var option_dict = {
 			"enabled": enabled,
@@ -235,6 +235,13 @@ func tire_agents(tire_value):
 		var new_fatigue = min(100, agent.fatigue + tire_value)
 		agent.set_fatigue(new_fatigue)
 		
+func tire_agent(agent, tire_value):
+	var new_fatigue = min(100, agent.fatigue + tire_value)
+	agent.set_fatigue(new_fatigue)
+	
+func get_random_agent():
+	return self.get_agents()[randi() % (self.get_agents().size() - 1)]
+		
 func add_fatigue_to_agents(strain):
 	print("Adding strain to agents ", strain)
 	for agent in get_agents():
@@ -272,9 +279,10 @@ func run_event(event):
 			tire_agents(5)
 		States.EVENTS.GAIN_TIME:
 			time = shortcut_time
+		States.EVENTS.HARM:
+			tire_agent(get_random_agent(), 10)
 			
 	return time
-
 
 func _on_Event_outcome_continue(next_event):
 	var round_duration = run_event(next_event)

@@ -8,14 +8,14 @@ size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 32
+size = 24
 font_data = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 1000.0
+margin_left = 1080.0
 margin_top = 40.0
 margin_right = 1880.0
 margin_bottom = 1040.0
@@ -35,15 +35,15 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
-margin_right = 800.0
-margin_bottom = 350.0
+margin_right = 720.0
+margin_bottom = 253.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="ColorRect/MarginContainer/VBoxContainer"]
-margin_right = 800.0
+margin_right = 720.0
 margin_bottom = 67.0
 custom_fonts/font = SubResource( 1 )
 text = "Title"
@@ -54,8 +54,8 @@ __meta__ = {
 
 [node name="Text" type="Label" parent="ColorRect/MarginContainer/VBoxContainer"]
 margin_top = 71.0
-margin_right = 800.0
-margin_bottom = 350.0
+margin_right = 720.0
+margin_bottom = 253.0
 custom_fonts/font = SubResource( 2 )
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat a augue sit amet porttitor. Suspendisse quis libero tincidunt, convallis erat eget, accumsan turpis. Proin vulputate diam orci, nec venenatis ligula tincidunt in. Maecenas ut libero rutrum, ullamcorper augue tempor, imperdiet nibh."
 autowrap = true

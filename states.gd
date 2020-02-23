@@ -30,7 +30,7 @@ var events_probas = {
 	EVENTS.FALL: 10,
 	EVENTS.STORM: 2,
 	EVENTS.BEAST: 10,
-	EVENTS.CAMP: 2,
+	EVENTS.CAMP: 0,
 	EVENTS.SHORTCUT: 8,
 	EVENTS.WIN: 0,
 	EVENTS.ANY: 0,
@@ -74,75 +74,100 @@ var items_descr = {
 }
 
 var event_descr = {
-	EVENTS.AVALANCHE: ["Avalanche", "Une avalanche vous tombe dessus"],
-	EVENTS.HOLE: ["Crevasse", "Vous arrivez à une crevasse"],
-	EVENTS.FALL: ["Chute", "Quelqu'un est tombé"],
-	EVENTS.STORM: ["Tempête", "Il y a une tempête"],
-	EVENTS.BEAST: ["Créature", "Une créature vous attaque"],
-	EVENTS.CAMP: ["Camp abandonné", "Vous arrivez à un camp abandonné"],
-	EVENTS.SHORTCUT: ["Raccourci", "Vous voyez un raccourci"],
+	EVENTS.NO: [
+		"Repère",
+		"Vous avez atteint un endroit abrité qui serait propice pour vous arrêter."
+	],
+	EVENTS.AVALANCHE: [
+		"Avalanche",
+		"Vous entendez un grondement sourd et avez à peine le temps de crier \"Avalanche!\" que la neige s'abat sur vous. Vous vous en êtes sorti mais une personne du groupe a disparu."
+	],
+	EVENTS.HOLE: [
+		"Obstacle",
+		"Vous arrivez au bord d'une crevasse de plusieurs mètres de large. Vous pouvez essayer de sauter par-dessus, mais c'est risqué."
+	],
+	EVENTS.FALL: [
+		"Chute",
+		"Vous entendez un cri au même moment que vous sentez une tension dans la corde. Une personne du groupe est tombée! "
+	],
+	EVENTS.STORM: [
+		"Tempête",
+		"Le vent se fait plus fort, le froid se fait plus mordant, la neige vous aveugle. Une tempête se lève, il serait risqué de continuer."
+	],
+	EVENTS.BEAST: [
+		"La mort qui rôde",
+		"Votre sang ne fait qu'un tour au moment où vous entendez le cri d'une bête sauvage. Elle se trouve juste devant vous!"
+	],
+	EVENTS.CAMP: [
+		"Camp abandonné",
+		"TODO"
+	],
+	EVENTS.SHORTCUT: [
+		"Raccourci?",
+		"Vous pensez pouvoir traverser le long d'une corniche pour gagner du temps. Elle n'est pas très large et quelqu'un risquerait de tomber."
+	],
 }
 
 var sol_descr = {
 	SOLS.GO: "Continuer à avancer",
 	SOLS.REST: "Faire une pause",
 	SOLS.REST_PLUS: "Utiliser le réchaud pour se réchauffer",
-	SOLS.ATTACK_GUN: "Tirer sur la créature",
-	SOLS.ATTACK_KNIFE: "Attaquer la créature avec le couteau",
-	SOLS.ATTACK_OTHER: "Frapper la créature avec un outil",
+	SOLS.ATTACK_GUN: "Essayer de tirer sur la créature",
+	SOLS.ATTACK_KNIFE: "Essayer d'attaquer la créature avec le couteau",
+	SOLS.ATTACK_OTHER: "Essayer de frapper la créature avec un outil",
 	SOLS.CLIMB: "Essayer d'escalader",
 	SOLS.CUT: "C'est trop risqué. Couper la corde",
-	SOLS.PULL: "Tirer sur la corde pour essayer de le remonter",
-	SOLS.DIG_UP: "Pelleter la neige pour essayer de le sortir de là",
+	SOLS.PULL: "Tirer sur la corde pour essayer de remonter la personne",
+	SOLS.DIG_UP: "Pelleter la neige pour essayer de le retrouver",
 	SOLS.DIG: "Chercher des objets avec la pelle",
-	SOLS.GO_AROUND: "La contourner",
+	SOLS.GO_AROUND: "Faire un détour",
 	SOLS.JUMP: "Essayer de sauter par-dessus la crevasse",
-	SOLS.ABANDON: "Abandonner un compagnon pour distraire la créature",
+	SOLS.ABANDON: "Sacrifier une personne pour distraire la créature",
 	SOLS.HELP: "Tirer en l'air en espérant que quelqu'un vous entende",
 	SOLS.WIN: "Remettre le message"
 }
 
 var outcomes_descr = {
 	SOLS.REST_PLUS: [
-		"La chaleur du réchaud vous détend et vous aide à vous reposer."
+		"La chaleur du réchaud est réconfortante et vous aide à vous reposer."
 	],
 	SOLS.ATTACK_GUN: [
-		"Le coup de feu est assourdissant. La créature s'effondre.",
-		"Le coup de feu est assourdissant. Vous avez manqué votre coup, la créature bondit et dévore l'un de vos malheureux compagnons. Vous prenez vos jambes à votre cou."
+		"Vous appuyez sur la détente. Le coup de feu vous assourdit. Vous voyez la créature bondir et fuir.",
+		"Vous appuyez sur la détente. Le coup de feu aurait probablement fait fuir l'animal s'il n'avait pas été aussi affamé. Il vous bondit dessus et vous arrache la gorge. Vous essayez de crier à l'aide mais seul un borborygme s'échappe alors que vous voyez vos compagnons prendre leurs jambes à leur cou."
 	],
 	SOLS.ATTACK_KNIFE: [
-		"Vous tuez la créature avec le couteau.",
-		"Vous essayez de tuer la créature avec le couteau mais elle est plus forte."
+		"La créature vous bondit dessus et vous met à terre. Vous sortez votre couteau et parvenez à la repousser. Elle s'enfuit.",
+		"La créature vous bondit dessus et vous met à terre. Vous sortez votre couteau et frappez... dans le vide. Son coup de griffes vous atteint au bras et elle s'enfuit au moment où vous arrivez à l'atteindre avec votre arme."
 	],
 	SOLS.ATTACK_OTHER: [
-		"Vous frappez la créature avec votre outil.",
-		"Vous essayez d'attaquer la créature avec votre outil mais elle est plus forte."
+		"Vous faites un pas de côté au moment où la bête vous saute dessus. Profitant qu'elle soit désabilisée, vous la frappez avec votre outil. Elle prend peur et s'enfuit.",
+		"Vous faites un pas de côté au moment où la bête vous saute dessus. Mais elle est plus rapide que vous, et vous avez à peine le temps d'attraper votre outil qu'elle est déjà en train de déchirer votre gorge alors que vos compagnons vous abandonnent à votre sort."
 	],
 	SOLS.CLIMB: [
-		"Vous escaladez la paroi.",
-		"Vous essayez d'escaladez la paroi mais vous manquez une prise et chutez."
+		"Vous escaladez la paroi et arrivez de l'autre côté.",
+		"Vous essayez d'escalader la paroi mais au moment de passer un endroit délicat, vous glissez et chutez."
 	],
 	SOLS.CUT: [
-		"Vous avez coupé la corde, oups."
+		"Vous espériez ne jamais avoir à faire ça, mais dans ce froid il n'y a qu'une chose à faire. Vous sortez votre couteau et coupez la corde. Vous entendez l'écho d'un cri."
 	],
 	SOLS.PULL: [
-		"Vous tirez sur la corde et arrivez à le remonter.",
-		"Vous tirez sur la corde pour essayer de le remonter mais c'est trop difficile."
+		"Malgré vos mains gelées, vous tirez de toutes vos forces sur la corde. Vous arrivez à remonter votre compagnon.",
+		"Vos mains sont gelées et vos doigts engourdis. Vous tirez de toutes vos forces sur la corde mais elle vous glisse des mains. Vous entendez l'écho d'un cri."
 	],
 	SOLS.DIG_UP: [
-		"Après plusieurs heures passées à chercher et creuser, vous retrouvez votre compagnon",
-		"Aprés plusieurs heures passées à chercher et creuser, vous n'arrivez pas à retrouver votre compagnon."
+		"Vous sortez votre pelle et passez plusieurs heures à creuser en hurlant le nom de votre compagnon. Vous finissez par le retrouver, miraculeusement sain et sauf.",
+		"Vous sortez votre pelle et passez plusieurs heures à creuser en hurlant le nom de votre compagnon. Le froid finit par vous faire abandonner. Vous décidez de continuer sans lui."
 	],
 	SOLS.DIG: [
 		"Après avoir creusé, vous trouvez un outil dans le campement abandonné.",
 		"Vous n'avez rien trouvé."
 	],
 	SOLS.GO_AROUND: [
-		"Vous décidez de contourner la crevasse et perdez du temps."	
+		"Vous prenez un chemin plus long mais plus sûr. Vous avez perdu un temps précieux et espérez arriver à temps."
 	],
 	SOLS.JUMP: [
-		"Vous passez la crevasse en sautant par dessus.",
-		"Un camarade glisse et chute à sa mort lors de son saut."
+		"Vous prenez votre élan et sautez par-dessus la crevasse. Vous n'accordez aucune attention aux mètres de vide sous vos pieds et arrivez de justesse à atteindre l'autre côté.",
+		"Vous prenez votre élan et sentez votre pied glisser au moment où vous sautez par-dessus la crevasse. Vous avez le temps de sentir votre estomac se nouer avant de faire une chute de plusieurs mètres et de vous briser les jambes en contrebas."
 	],
 	SOLS.ABANDON: [
 		"Vous faites le choix difficile d'abandonner un compagnon à la merci de la créature. Cette distraction vous permet de vous enfuir."	
@@ -284,7 +309,7 @@ var sol_outcomes = {
 			true: EVENTS.NO
 		},
 		SOLS.ATTACK_OTHER: {
-			false: EVENTS.HARM,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		},
 		SOLS.ABANDON: {
@@ -316,8 +341,8 @@ var sol_outcomes = {
 			true: EVENTS.GAIN_TIME
 		},
 		SOLS.GO_AROUND: {
-			false: EVENTS.DELAY,
-			true: EVENTS.DELAY,
+			false: EVENTS.NO,
+			true: EVENTS.NO,
 		}
 	},
 }
@@ -338,7 +363,7 @@ var sols_dialogue = {
 		},
 		SOLS.HELP: {
 			false: "Personne n'a entendu...",
-			true: "J'entends des gens!'"
+			true: "J'entends des gens!"
 		},
 		SOLS.WIN: {
 			false: null,
@@ -399,7 +424,7 @@ var sols_dialogue = {
 			true: "Ce couteau m'a sauvé la vie."
 		},
 		SOLS.ATTACK_OTHER: {
-			false: "Ce n'est vraiment pas une arme pratique.",
+			false: "Nous aurions mieux fait de fuir!",
 			true: "Je n'arrive pas à croire que ça a marché."
 		},
 		SOLS.ABANDON: {
