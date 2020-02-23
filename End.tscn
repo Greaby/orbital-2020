@@ -1,13 +1,9 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Win.png" type="Texture" id=1]
 
 [node name="End" type="Node2D"]
 
-[node name="Label" type="Label" parent="."]
-margin_left = 666.316
-margin_top = 195.789
-margin_right = 706.316
-margin_bottom = 209.789
-text = "Win"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
