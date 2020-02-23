@@ -1,6 +1,7 @@
 extends Node2D
 
 export(int) var steps_to_win = 20
+var current_step = 1
 # Current time as hour of the day
 var current_time = 5.0
 var night_alpha = 0
@@ -196,6 +197,9 @@ func has_any_item(items):
 	return false
 	
 func get_agents():
+	if $agents.get_child_count() == 0:
+		get_tree().change_scene("res://GameOver.tscn")
+	
 	return $agents.get_children()
 	
 func get_random_event():
@@ -210,10 +214,6 @@ func get_random_event():
 
 func _on_NextButton_pressed():
 	steps_to_win -= 1
-	
-	if steps_to_win == 0:
-		get_tree().change_scene("res://End.tscn")
-		return
 	
 	play_turn()
 
@@ -273,10 +273,13 @@ func add_fatigue_to_agents(strain):
 func kill_random_agent():
 	var agents = get_agents()
 	
-	if agents:
+	if agents and agents.size() > 1:
 		var agent_id = randi() % (agents.size() - 1)
 		print("Killing agent ", agent_id)
 		$agents.remove_child($agents.get_child(agent_id))
+	
+	if agents.size() == 1:
+		get_tree().change_scene("res://GameOver.tscn")
 	
 func run_event(event):
 	print("Running event ", event)
@@ -304,4 +307,9 @@ func run_event(event):
 func _on_Event_outcome_continue(next_event):
 	var round_duration = run_event(next_event)
 	pass_time(round_duration)
+	current_step += 1
+	
+	if current_step == steps_to_win:
+		get_tree().change_scene("res://End.tscn")
+	
 	play_turn()
