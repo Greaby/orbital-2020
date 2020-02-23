@@ -1,6 +1,12 @@
 extends Node2D
 
 var items = []
+var fatigue = 0
+
+func set_fatigue(fatigue_):
+	print("Setting agent fatigue to ", fatigue_)
+	fatigue = fatigue_
+	$FatigueLabel.text = "Fatigue: " + str(fatigue_)
 
 func _ready():
 	$AnimatedSprite.play("default")

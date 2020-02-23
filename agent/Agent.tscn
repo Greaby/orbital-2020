@@ -54,7 +54,7 @@ position = Vector2( -64, -288 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "move"
-frame = 4
+frame = 5
 playing = true
 
 [node name="items" type="Node2D" parent="."]
@@ -64,3 +64,14 @@ position = Vector2( 24, -224 )
 
 [node name="Position2D2" type="Position2D" parent="items"]
 position = Vector2( 24, -296 )
+
+[node name="FatigueLabel" type="Label" parent="."]
+margin_left = -29.0088
+margin_top = 192.254
+margin_right = 41.9912
+margin_bottom = 206.254
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Fatigue: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}

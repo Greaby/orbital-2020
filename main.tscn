@@ -53,3 +53,4 @@ __meta__ = {
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="selected_option" from="Event" to="." method="_on_Event_selected_option"]

@@ -6,14 +6,14 @@ signal drop
 var drag_mouse = false
 var last_position = Vector2()
 
-export(states.ITEMS) var id = 0 setget set_id
+export(States.ITEMS) var id = 0 setget set_id
 
 var textures = {
-	states.ITEMS.GUN: "res://items/assets/outils-03.png",
-	states.ITEMS.FURNACE: "res://items/assets/outils-04.png",
-	states.ITEMS.KNIFE: "res://items/assets/outils-02.png",
-	states.ITEMS.PICK: "res://items/assets/outils-05.png",
-	states.ITEMS.SHOVEL: "res://items/assets/outils-01.png"
+	States.ITEMS.GUN: "res://items/assets/outils-03.png",
+	States.ITEMS.FURNACE: "res://items/assets/outils-04.png",
+	States.ITEMS.KNIFE: "res://items/assets/outils-02.png",
+	States.ITEMS.PICK: "res://items/assets/outils-05.png",
+	States.ITEMS.SHOVEL: "res://items/assets/outils-01.png"
 }
 
 func set_id(_id):

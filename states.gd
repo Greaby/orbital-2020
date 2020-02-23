@@ -16,7 +16,11 @@ enum EVENTS {
 	SHORTCUT,
 	GET_OBJ,
 	WIN,
-	ANY
+	ANY,
+	REST,
+	REST_PLUS,
+	KILL,
+	HARM,
 }
 
 var events_probas = {
@@ -28,7 +32,6 @@ var events_probas = {
 	EVENTS.BEAST: 2,
 	EVENTS.CAMP: 2,
 	EVENTS.SHORTCUT: 2,
-	EVENTS.GET_OBJ: 2,
 	EVENTS.WIN: 0,
 	EVENTS.ANY: 0,
 	EVENTS.HARM: 0,
@@ -93,7 +96,8 @@ var sol_descr = {
 	SOLS.GO_AROUND: "Go around to avoid it.",
 	SOLS.JUMP: "Attempt to jump the chasm.",
 	SOLS.ABANDON: "Leave your mate as a distraction for the beast.",
-	SOLS.HELP: "Fire a shot in the air and hope they hear you."
+	SOLS.HELP: "Fire a shot in the air and hope they hear you.",
+	SOLS.WIN: "Deliver the message."
 }
 
 var reqs = {
@@ -151,18 +155,18 @@ var sol_probas = {
 	EVENTS.SHORTCUT: {
 		SOLS.GO: 100,
 		SOLS.GO_AROUND: 50
-	}
+	},
 }
 
 var sol_outcomes = {
 	EVENTS.NO: {
 		SOLS.REST: {
 			false: EVENTS.NO,
-			true: EVENTS.NO
+			true: EVENTS.REST
 		},
 		SOLS.REST_PLUS: {
 			false: EVENTS.NO,
-			true: EVENTS.NO
+			true: EVENTS.REST_PLUS
 		},
 		SOLS.GO: {
 			false: EVENTS.NO,
@@ -179,7 +183,7 @@ var sol_outcomes = {
 	},
 	EVENTS.AVALANCHE: {
 		SOLS.DIG_UP: {
-			false: EVENTS.AVALANCHE,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		},
 		SOLS.GO: {
@@ -189,11 +193,11 @@ var sol_outcomes = {
 	},
 	EVENTS.HOLE: {
 		SOLS.JUMP: {
-			false: EVENTS.FALL,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		},
 		SOLS.GO_AROUND: {
-			false: EVENTS.FALL,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		}
 	},
@@ -203,11 +207,11 @@ var sol_outcomes = {
 			true: EVENTS.KILL
 		},
 		SOLS.CLIMB: {
-			false: EVENTS.FALL,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		},
 		SOLS.PULL: {
-			false: EVENTS.FALL,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		}
 	},
@@ -223,7 +227,7 @@ var sol_outcomes = {
 	},
 	EVENTS.BEAST: {
 		SOLS.ATTACK_GUN: {
-			false: EVENTS.NO,
+			false: EVENTS.KILL,
 			true: EVENTS.NO
 		},
 		SOLS.ATTACK_KNIFE: {
@@ -235,8 +239,8 @@ var sol_outcomes = {
 			true: EVENTS.NO
 		},
 		SOLS.ABANDON: {
-			false: EVENTS.KILL,
-			true: EVENTS.NO
+			false: EVENTS.NO,
+			true: EVENTS.KILL
 		}
 	},
 	EVENTS.CAMP: {
@@ -280,8 +284,6 @@ var sol_outcomes = {
 		}
 	}
 }
-
-
 
 func next(state, solution, items):
 	pass
