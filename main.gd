@@ -22,6 +22,7 @@ func _ready():
 	
 func play_turn():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
+	$AnimationPlayer.stop()
 	$AnimationPlayer.play("move")
 	
 	$Event.discard()
@@ -32,7 +33,7 @@ func play_turn():
 
 	$AnimationTimer.start()
 
-	yield(get_tree().create_timer(2.5), "timeout")
+	yield(get_tree().create_timer(5), "timeout")
 
 	for agent in get_agents():
 		agent.stop()

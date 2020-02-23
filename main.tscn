@@ -7,7 +7,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "move"
-length = 3.0
+length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("terrain:position")
 tracks/0/interp = 1
@@ -15,10 +15,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 2226.41, 767.406 ), Vector2( -657.623, 1594.27 ) ]
+"values": [ Vector2( 1423.51, 1003.08 ), Vector2( 1028.06, 1136.9 ) ]
 }
 
 [node name="main" type="Node2D"]
@@ -41,22 +41,22 @@ __meta__ = {
 }
 
 [node name="terrain" type="Sprite" parent="."]
-position = Vector2( -657.623, 1594.27 )
+position = Vector2( 1423.51, 1003.08 )
 texture = ExtResource( 4 )
 
 [node name="agents" type="Node2D" parent="."]
 
 [node name="Agent" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 209.551, 773.503 )
+position = Vector2( 314.283, 849.953 )
 
 [node name="Agent2" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 452.989, 700.057 )
+position = Vector2( 577.763, 830.866 )
 
 [node name="Agent3" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 718.977, 618.378 )
+position = Vector2( 809.078, 745.58 )
 
 [node name="Agent4" parent="agents" instance=ExtResource( 1 )]
-position = Vector2( 988.915, 540.403 )
+position = Vector2( 1035.52, 705.841 )
 
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false

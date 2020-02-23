@@ -42,7 +42,7 @@ animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
 "loop": true,
 "name": "move",
-"speed": 40.0
+"speed": 20.0
 } ]
 
 [node name="Agent" type="Node2D"]
@@ -52,9 +52,10 @@ script = ExtResource( 1 )
 position = Vector2( -64, -288 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "move"
-frame = 5
+frame = 22
 playing = true
 
 [node name="items" type="Node2D" parent="."]
