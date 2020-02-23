@@ -81,6 +81,7 @@ tracks/4/keys = {
 
 [node name="main" type="Node2D"]
 script = ExtResource( 2 )
+steps_to_win = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/move = SubResource( 1 )

@@ -2,7 +2,8 @@ extends Node2D
 
 export(int) var steps_to_win = 20
 # Current time as hour of the day
-var current_time = 5.0
+var current_time = 16.0
+var night_alpha = 0
 
 # Fatigue to add on each round
 var regular_strain = 10
@@ -29,11 +30,13 @@ var shortcut_time = 0.5
 func _ready():
 	randomize()
 	init_items()
+	set_night_level(false)
 	play_turn()
 
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
 	
+<<<<<<< HEAD
 func display_dialogue():
 	var agents = get_agents()
 	dialogue_agent = agents[randi() % len(agents)]
@@ -59,6 +62,48 @@ func display_dialogue():
 	
 func hide_dialogue():
 	dialogue_agent.remove_dialogue()
+=======
+func get_night_alpha():
+	var alpha = 0
+	
+	if current_time >= 17:
+		alpha = 1.0 / float(max(1, 24 - current_time))
+	elif current_time <= 5:
+		alpha = 1 - 1.0 / float(max(1, 6 - current_time))
+	
+	# Make sure alpha doesn't exceed 0.8 or the player won't see anything
+	alpha = min(0.8, alpha)
+	
+	return alpha
+		
+func set_night_level(animate=true):
+	var night = $Night
+	var alpha = 0
+	
+	alpha = get_night_alpha()
+		
+	var new_color = night.color
+	new_color.a = alpha
+
+	if animate:
+		var tween = $Night/Tween
+		tween.interpolate_property(
+			night, "color", night.color, new_color, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN
+		)
+		if not tween.is_active():
+			tween.start()
+	else:
+		night.color = new_color
+			
+func pass_time(delay):
+	current_time = current_time + delay
+	if current_time > 24:
+		current_time -= 24
+		
+	$Time.text = str(current_time)
+	
+	set_night_level(true)
+>>>>>>> 865c99e8459533d4962768600e78e6db4e7f01ee
 	
 func play_turn():
 	$AnimationPlayer.stop()
@@ -161,8 +206,9 @@ func _on_Event_selected_option(event, option):
 	mem_next_event = success
 	mem_chosen = option
 	
-	run_event(next_event)
-		
+	var round_duration = run_event(next_event)
+	pass_time(round_duration)
+	
 	play_turn()
 	
 func rest_agents(rest_value):
@@ -193,9 +239,6 @@ func kill_random_agent():
 		var agent_id = randi() % (agents.size() - 1)
 		print("Killing agent ", agent_id)
 		$agents.remove_child($agents.get_child(agent_id))
-		
-func delay(time):
-	current_time += time
 	
 func run_event(event):
 	print("Running event ", event)

@@ -186,7 +186,7 @@ var sol_outcomes = {
 	EVENTS.AVALANCHE: {
 		SOLS.DIG_UP: {
 			false: EVENTS.KILL,
-			true: EVENTS.NO
+			true: EVENTS.DELAY_LONG
 		},
 		SOLS.GO: {
 			false: EVENTS.KILL,
