@@ -29,6 +29,10 @@ func _ready():
 	play_turn()
 
 
+func animation_mountain():
+	$BackgroundTween.interpolate_property($Background, "position", $Background.position, $Background.position + Vector2(0, 40), 10, Tween.TRANS_LINEAR)
+	$BackgroundTween.start()
+
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
 	
