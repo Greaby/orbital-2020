@@ -10,7 +10,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "move"
-length = 5.0
+length = 11.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("terrain:position")
 tracks/0/interp = 1
@@ -18,17 +18,52 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 5 ),
+"times": PoolRealArray( 0.5, 10.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1423.51, 1003.08 ), Vector2( 1028.06, 1136.9 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorFade:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 10, 11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorFade:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6, 1, 10, 10.4, 10.6, 11 ),
+"transitions": PoolRealArray( 2, 0.5, 1, 1, 2, 0.5, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "change_terrain"
+} ]
+}
 
 [node name="main" type="Node2D"]
 script = ExtResource( 2 )
-
-[node name="AnimationTimer" type="Timer" parent="."]
-wait_time = 3.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/move = SubResource( 1 )
@@ -44,7 +79,7 @@ __meta__ = {
 }
 
 [node name="terrain" type="Sprite" parent="."]
-position = Vector2( 1423.51, 1003.08 )
+position = Vector2( 1399.78, 1011.11 )
 texture = ExtResource( 4 )
 
 [node name="agents" type="Node2D" parent="."]
@@ -64,4 +99,12 @@ position = Vector2( 968.587, 699.232 )
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, -3.09082 )
+
+[node name="ColorFade" type="ColorRect" parent="."]
+margin_right = 1911.0
+margin_bottom = 1077.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="selected_option" from="Event" to="." method="_on_Event_selected_option"]
