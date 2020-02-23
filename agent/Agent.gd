@@ -15,7 +15,6 @@ func _ready():
 	$AnimatedSprite.play("default")
 	hide_items_ui()
 
-
 func move():
 	$AnimatedSprite.play("move")
 	$AnimatedSprite.frame = randi() % 20

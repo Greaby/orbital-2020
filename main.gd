@@ -16,6 +16,14 @@ var mem_curr_event = null
 var mem_next_event = null
 var mem_chosen = null
 var dialogue_agent = null
+var dialogue_queue = []
+
+var progress = {
+	"night" : false,
+	"distance" : 0,
+	"death" : 4,
+	"health" : [0, 0, 0, 0],
+}
 
 var pentes = [
 	"res://terrain/pente-01.png",
@@ -49,23 +57,43 @@ func show_items():
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
 	
-func display_dialogue():
+func display_dialogue(type):
 	var agents = get_agents()
 	dialogue_agent = agents[randi() % len(agents)]
 	var temp = null
 	
-	if mem_curr_event != null:
-		temp = States.sols_dialogue.get(mem_curr_event)
-	
-	if temp != null:
-		temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
+	if type == 0:
+		if mem_curr_event != null:
+			temp = States.sols_dialogue.get(mem_curr_event)
 		
-	if temp != null:
-		temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
-	
+		if temp != null:
+			temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
+			
+		if temp != null:
+			temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
+		
+	elif type == 1:
+		if true: # DISTANCE
+			pass
+		if !progress["night"] and night_alpha > 0.8: # NIGHT
+			progress["night"] = true
+			enqueue_line(States.progress_dialogue["night"])
+		elif len(get_agents()) < progress["death"]: # DEATH
+			progress["death"] = len(get_agents())
+			enqueue_line(States.progress_dialogue['death'][len(get_agents())])
+		else:
+			pass
+			
+		if len(dialogue_queue):
+			temp = dialogue_queue.pop_front()
+
 	if temp != null:
 		dialogue_agent.add_dialogue(temp)
-	
+		
+func enqueue_line(lines):
+	var idx = randi() % len(lines)
+	dialogue_queue.append(lines[idx])
+		
 func hide_dialogue():
 	dialogue_agent.remove_dialogue()
 	

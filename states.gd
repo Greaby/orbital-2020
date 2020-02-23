@@ -436,3 +436,70 @@ var sols_dialogue = {
 		}
 	},
 }
+
+var progress_dialogue = {
+	"night" : [
+		"Nous devons nous dépêcher!",
+		"Si la nuit tombe, je ne donne pas cher de notre peau...",
+		"Je n'y vois rien, c'est dur d'avancer."
+	],
+	"death" : {
+		1 : [
+			"Jamais je n’ai assisté à la mort de quelqu’un auparavant."
+		],
+		2 : [
+			"C’est vous et moi maintenant.",
+			"Cette mission devient pire à chaque heure!"
+		],
+		3 : [
+			"Il ne reste que moi.",
+			"Pourquoi moi?",
+			"Tout repose sur moi maintenant.",
+			"Vais-je mourir seul?"
+		]
+	},
+	"distance" : {
+		0 : [
+			"Le moteur est mort. Nous n’avons pas le choix. Il faut continuer à pied et délivrer le message.",
+			"Le message doit atteindre le sommet. Tout en dépend.",
+			"Il ne reste plus que nous quatre. Vous vous souvenez tous du message?"
+		],
+		1 : [
+			"J’espère qu’on y arrivera...",
+			"On est encore loin"
+		],
+		2 : [
+			"On dirait qu'on est à mi-chemin.",
+			"Nous progressons."
+		],
+		3 : [
+			"Je peux apercevoir le sommet d’ici!",
+			"Je ne suis pas arrivé si loin pour mourir maintenant.",
+			"On peut le faire!"
+		]
+	},
+	"health" : {
+		0 : [
+			"On avance bien.",
+			"On va y arriver avant la nuit."
+		],
+		1 : [
+			"Je ne dirais pas non à une petite halte",
+			"J'ai faim.",
+			"Juste mettre un pied devant l'autre...",
+			"Mes pieds commencent à geler"
+		],
+		2 : [
+			"J'ai besoin de me reposer.",
+			"J'ai mal aux jambes.",
+			"Je meurs de faim.",
+			"C'est trop difficile."
+		],
+		3 : [
+			"Je n'en peux plus, arrêtons-nous, par pitié!",
+			"Je suis à bout de souffle...",
+			"Laissez-moi ici, je ne peux plus continuer.",
+			"SEIGNEUR, AIDE MOI!"
+		]
+	}
+}
