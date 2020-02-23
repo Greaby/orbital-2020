@@ -6,7 +6,7 @@
 font_path = "res://events/AftaSansThin-Regular.otf"
 
 [sub_resource type="DynamicFont" id=2]
-size = 32
+size = 24
 font_data = SubResource( 1 )
 
 [node name="Control" type="Control"]
@@ -31,14 +31,14 @@ text = "> Choice"
 [node name="Description" type="Label" parent="VBoxContainer"]
 margin_top = 38.0
 margin_right = 1920.0
-margin_bottom = 82.0
+margin_bottom = 72.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.733333, 0.733333, 0.733333, 1 )
 text = "Outcome text"
 autowrap = true
 
 [node name="Continue" parent="VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 86.0
+margin_top = 76.0
 margin_right = 1920.0
-margin_bottom = 120.0
+margin_bottom = 110.0
 text = "> Poursuivre"
