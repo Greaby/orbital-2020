@@ -138,10 +138,9 @@ position = Vector2( 0, -3.09082 )
 z_index = 200
 
 [node name="ColorFade" type="ColorRect" parent="Node2D"]
-visible = false
 margin_right = 1911.0
 margin_bottom = 1077.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
