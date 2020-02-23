@@ -56,24 +56,19 @@ func display_dialogue():
 	
 	if mem_curr_event != null:
 		temp = States.sols_dialogue.get(mem_curr_event)
-		
-	print(temp)
 	
 	if temp != null:
 		temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
-	
-	print(temp)
 		
 	if temp != null:
 		temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
-	
-	print(temp)
 	
 	if temp != null:
 		dialogue_agent.add_dialogue(temp)
 	
 func hide_dialogue():
 	dialogue_agent.remove_dialogue()
+	
 func get_night_alpha():
 	var alpha = 0
 	
