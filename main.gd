@@ -274,7 +274,7 @@ func tire_agent(agent, tire_value):
 	agent.set_fatigue(new_fatigue)
 	
 func get_random_agent():
-	return self.get_agents()[randi() % (self.get_agents().size() - 1)]
+	return self.get_agents()[randi() % (self.get_agents().size())]
 		
 func add_fatigue_to_agents(strain):
 	print("Adding strain to agents ", strain)
@@ -287,7 +287,7 @@ func kill_random_agent():
 	var agents = get_agents()
 	
 	if agents and agents.size() > 1:
-		var agent_id = randi() % (agents.size() - 1)
+		var agent_id = randi() % (agents.size())
 		print("Killing agent ", agent_id)
 		$agents.remove_child($agents.get_child(agent_id))
 		progress["health"].remove(agent_id)
