@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neige.ogg-b76ad9088215f4f0df4407b21b9006cc.oggstr"
+
+[deps]
+
+source_file="res://assets/neige.ogg"
+dest_files=[ "res://.import/neige.ogg-b76ad9088215f4f0df4407b21b9006cc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
