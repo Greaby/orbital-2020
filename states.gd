@@ -151,7 +151,7 @@ var outcomes_descr = {
 		"Vous espériez ne jamais avoir à faire ça, mais dans ce froid il n'y a qu'une chose à faire. Vous sortez votre couteau et coupez la corde. Vous entendez l'écho d'un cri."
 	],
 	SOLS.PULL: [
-		"Malgré vos mains gelées, vous tirez de toutes vos forces sur la corde. Vous arrivez à remonter votre compagnon.",
+		"Malgré vos mains gelées, vous tirez de toutes vos forces sur la corde. Vous arrivez à remonter votre compagnon.",
 		"Vos mains sont gelées et vos doigts engourdis. Vous tirez de toutes vos forces sur la corde mais elle vous glisse des mains. Vous entendez l'écho d'un cri."
 	],
 	SOLS.DIG_UP: [
