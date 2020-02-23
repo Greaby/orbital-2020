@@ -116,11 +116,11 @@ var outcomes_descr = {
 	],
 	SOLS.ATTACK_OTHER: [
 		"Vous frappez la créature avec votre outil.",
-		"Vous essayez d'attaquer la créature avec votre outil mais elle est plus forte.'"
+		"Vous essayez d'attaquer la créature avec votre outil mais elle est plus forte."
 	],
 	SOLS.CLIMB: [
 		"Vous escaladez la paroi.",
-		"Vous essayez d'escaladez la paroi mais vous manquez une prise et chutez.'"
+		"Vous essayez d'escaladez la paroi mais vous manquez une prise et chutez."
 	],
 	SOLS.CUT: [
 		"Vous avez coupé la corde, oups."
@@ -131,20 +131,21 @@ var outcomes_descr = {
 	],
 	SOLS.DIG_UP: [
 		"Après plusieurs heures passées à chercher et creuser, vous retrouvez votre compagnon",
-		"Aprés plusieurs heures passées à chercher et creuser, vous n'arrivez pas à retrouver votre compagnon'"
+		"Aprés plusieurs heures passées à chercher et creuser, vous n'arrivez pas à retrouver votre compagnon."
 	],
 	SOLS.DIG: [
-		"TODO",
-		"TODO"
+		"Après avoir creusé, vous trouvez un outil dans le campement abandonné.",
+		"Vous n'avez rien trouvé."
 	],
 	SOLS.GO_AROUND: [
-		"TODO"	
+		"Vous décidez de contourner la crevasse et perdez du temps."	
 	],
 	SOLS.JUMP: [
-		"TODO", "TODO"
+		"Vous passez la crevasse en sautant par dessus.",
+		"Un camarade glisse et chute à sa mort lors de son saut."
 	],
 	SOLS.ABANDON: [
-		"TODO"	
+		"Vous faites le choix difficile d'abandonner un compagnon à la merci de la créature. Cette distraction vous permet de vous enfuir."	
 	]
 }
 
@@ -435,7 +436,3 @@ var sols_dialogue = {
 		}
 	},
 }
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
