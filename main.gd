@@ -74,17 +74,22 @@ func display_dialogue(type):
 			temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
 		
 	elif type == 1:
-		if true: # DISTANCE
-			pass
+		print(progress)
+		if current_step / steps_to_win > progress["distance"]: # DISTANCE
+			enqueue_line(States.progress_dialogue["distance"][progress["distance"]])
+			progress["distance"] = progress["distance"] + 1
 		if !progress["night"] and night_alpha > 0.8: # NIGHT
-			progress["night"] = true
 			enqueue_line(States.progress_dialogue["night"])
+			progress["night"] = true
 		elif len(get_agents()) < progress["death"]: # DEATH
 			progress["death"] = len(get_agents())
-			enqueue_line(States.progress_dialogue['death'][len(get_agents())])
+			enqueue_line(States.progress_dialogue['death'][4 - len(get_agents())])
 		else:
-			pass
-			
+			for i in range(len(get_agents())):
+				if get_agents()[i].fatigue > progress["health"][i] * 25:
+					enqueue_line(States.progress_dialogue["health"][int(get_agents()[i].fatigue / 25)])
+					progress["health"][i] = progress["health"][i] + 1
+					
 		if len(dialogue_queue):
 			temp = dialogue_queue.pop_front()
 
@@ -277,6 +282,7 @@ func kill_random_agent():
 		var agent_id = randi() % (agents.size() - 1)
 		print("Killing agent ", agent_id)
 		$agents.remove_child($agents.get_child(agent_id))
+		progress["health"].remove(agent_id)
 	
 	if agents.size() == 1:
 		get_tree().change_scene("res://GameOver.tscn")
