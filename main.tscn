@@ -40,17 +40,6 @@ position = Vector2( 718.977, 618.378 )
 [node name="Agent4" parent="agents" instance=ExtResource( 1 )]
 position = Vector2( 988.915, 540.403 )
 
-[node name="NextButton" type="Button" parent="."]
-margin_left = 1526.0
-margin_top = 912.0
-margin_right = 1824.0
-margin_bottom = 1013.0
-text = "Passer le tour"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Event" parent="." instance=ExtResource( 3 )]
 visible = false
-[connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="selected_option" from="Event" to="." method="_on_Event_selected_option"]
