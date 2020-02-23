@@ -82,10 +82,16 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 3, 8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 1.5, 4.5, 5.5, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
+"args": [ 0 ],
+"method": "display_dialogue"
+}, {
 "args": [  ],
+"method": "hide_dialogue"
+}, {
+"args": [ 1 ],
 "method": "display_dialogue"
 }, {
 "args": [  ],
@@ -205,7 +211,6 @@ position = Vector2( 0, -3.09082 )
 z_index = 200
 
 [node name="ColorFade" type="ColorRect" parent="Node2D"]
-visible = false
 margin_right = 1911.0
 margin_bottom = 1077.0
 color = Color( 0, 0, 0, 0 )

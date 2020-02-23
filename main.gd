@@ -101,7 +101,8 @@ func enqueue_line(lines):
 	dialogue_queue.append(lines[idx])
 		
 func hide_dialogue():
-	dialogue_agent.remove_dialogue()
+	if dialogue_agent:
+		dialogue_agent.remove_dialogue()
 	
 func get_night_alpha():
 	var alpha = 0
