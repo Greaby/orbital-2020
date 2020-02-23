@@ -1,45 +1,45 @@
 [gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://agent/Agent.gd" type="Script" id=1]
-[ext_resource path="res://agent/assets/Perso10005.png" type="Texture" id=2]
-[ext_resource path="res://agent/assets/Perso10001.png" type="Texture" id=3]
-[ext_resource path="res://agent/assets/Perso10004.png" type="Texture" id=4]
-[ext_resource path="res://agent/assets/Perso10002.png" type="Texture" id=5]
-[ext_resource path="res://agent/assets/Perso10003.png" type="Texture" id=6]
-[ext_resource path="res://agent/assets/Perso10006.png" type="Texture" id=7]
-[ext_resource path="res://agent/assets/Perso10007.png" type="Texture" id=8]
-[ext_resource path="res://agent/assets/Perso10008.png" type="Texture" id=9]
-[ext_resource path="res://agent/assets/Perso10009.png" type="Texture" id=10]
-[ext_resource path="res://agent/assets/Perso10010.png" type="Texture" id=11]
-[ext_resource path="res://agent/assets/Perso10011.png" type="Texture" id=12]
-[ext_resource path="res://agent/assets/Perso10013.png" type="Texture" id=13]
-[ext_resource path="res://agent/assets/Perso10012.png" type="Texture" id=14]
-[ext_resource path="res://agent/assets/Perso10015.png" type="Texture" id=15]
-[ext_resource path="res://agent/assets/Perso10018.png" type="Texture" id=16]
-[ext_resource path="res://agent/assets/Perso10019.png" type="Texture" id=17]
-[ext_resource path="res://agent/assets/Perso10014.png" type="Texture" id=18]
-[ext_resource path="res://agent/assets/Perso10017.png" type="Texture" id=19]
-[ext_resource path="res://agent/assets/Perso10016.png" type="Texture" id=20]
-[ext_resource path="res://agent/assets/Perso10021.png" type="Texture" id=21]
-[ext_resource path="res://agent/assets/Perso10022.png" type="Texture" id=22]
-[ext_resource path="res://agent/assets/Perso10020.png" type="Texture" id=23]
-[ext_resource path="res://agent/assets/Perso10024.png" type="Texture" id=24]
-[ext_resource path="res://agent/assets/Perso10023.png" type="Texture" id=25]
-[ext_resource path="res://agent/assets/Perso10025.png" type="Texture" id=26]
-[ext_resource path="res://agent/assets/Perso10026.png" type="Texture" id=27]
-[ext_resource path="res://agent/assets/Perso10027.png" type="Texture" id=28]
-[ext_resource path="res://agent/assets/Perso10028.png" type="Texture" id=29]
-[ext_resource path="res://agent/assets/Perso10030.png" type="Texture" id=30]
-[ext_resource path="res://agent/assets/Perso10029.png" type="Texture" id=31]
+[ext_resource path="res://agent/assets/Perso30020.png" type="Texture" id=2]
+[ext_resource path="res://agent/assets/Perso30012.png" type="Texture" id=3]
+[ext_resource path="res://agent/assets/Perso30010.png" type="Texture" id=4]
+[ext_resource path="res://agent/assets/Perso30027.png" type="Texture" id=5]
+[ext_resource path="res://agent/assets/Perso30013.png" type="Texture" id=6]
+[ext_resource path="res://agent/assets/Perso30025.png" type="Texture" id=7]
+[ext_resource path="res://agent/assets/Perso30021.png" type="Texture" id=8]
+[ext_resource path="res://agent/assets/Perso30003.png" type="Texture" id=9]
+[ext_resource path="res://agent/assets/Perso30009.png" type="Texture" id=10]
+[ext_resource path="res://agent/assets/Perso30002.png" type="Texture" id=11]
+[ext_resource path="res://agent/assets/Perso30014.png" type="Texture" id=12]
+[ext_resource path="res://agent/assets/Perso30016.png" type="Texture" id=13]
+[ext_resource path="res://agent/assets/Perso30029.png" type="Texture" id=14]
+[ext_resource path="res://agent/assets/Perso30017.png" type="Texture" id=15]
+[ext_resource path="res://agent/assets/Perso30028.png" type="Texture" id=16]
+[ext_resource path="res://agent/assets/Perso30019.png" type="Texture" id=17]
+[ext_resource path="res://agent/assets/Perso30008.png" type="Texture" id=18]
+[ext_resource path="res://agent/assets/Perso30024.png" type="Texture" id=19]
+[ext_resource path="res://agent/assets/Perso30015.png" type="Texture" id=20]
+[ext_resource path="res://agent/assets/Perso30023.png" type="Texture" id=21]
+[ext_resource path="res://agent/assets/Perso30030.png" type="Texture" id=22]
+[ext_resource path="res://agent/assets/Perso30018.png" type="Texture" id=23]
+[ext_resource path="res://agent/assets/Perso30005.png" type="Texture" id=24]
+[ext_resource path="res://agent/assets/Perso30011.png" type="Texture" id=25]
+[ext_resource path="res://agent/assets/Perso30006.png" type="Texture" id=26]
+[ext_resource path="res://agent/assets/Perso30026.png" type="Texture" id=27]
+[ext_resource path="res://agent/assets/Perso30022.png" type="Texture" id=28]
+[ext_resource path="res://agent/assets/Perso30004.png" type="Texture" id=29]
+[ext_resource path="res://agent/assets/Perso30007.png" type="Texture" id=30]
+[ext_resource path="res://agent/assets/Perso30001.png" type="Texture" id=31]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ ExtResource( 30 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
+"frames": [ ExtResource( 31 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 29 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 30 ), ExtResource( 18 ), ExtResource( 10 ), ExtResource( 4 ), ExtResource( 25 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 23 ), ExtResource( 17 ), ExtResource( 2 ), ExtResource( 8 ), ExtResource( 28 ), ExtResource( 21 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 27 ), ExtResource( 5 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 22 ) ],
 "loop": true,
 "name": "move",
 "speed": 20.0
@@ -55,7 +55,7 @@ position = Vector2( -64, -288 )
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "move"
-frame = 22
+frame = 25
 playing = true
 
 [node name="items" type="Node2D" parent="."]
