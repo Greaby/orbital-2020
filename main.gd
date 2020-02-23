@@ -11,6 +11,11 @@ var rest_value_regular = 5
 # Fatigue to heal on each break with furnace
 var rest_value_plus = 8
 
+var mem_curr_event = null
+var mem_next_event = null
+var mem_chosen = null
+var dialogue_agent = null
+
 var pentes = [
 	"res://terrain/pente-01.png",
 	"res://terrain/pente-02.png",
@@ -26,9 +31,34 @@ func _ready():
 	init_items()
 	play_turn()
 
-
 func change_terrain():
 	$terrain.texture = load(pentes[randi() % pentes.size()])
+	
+func display_dialogue():
+	var agents = get_agents()
+	dialogue_agent = agents[randi() % len(agents)]
+	var temp = null
+	
+	if mem_curr_event != null:
+		temp = States.sols_dialogue.get(mem_curr_event)
+		
+	print(temp)
+	
+	if temp != null:
+		temp = States.sols_dialogue[mem_curr_event].get(mem_chosen)
+	
+	print(temp)
+		
+	if temp != null:
+		temp = States.sols_dialogue[mem_curr_event][mem_chosen].get(mem_next_event)
+	
+	print(temp)
+	
+	if temp != null:
+		dialogue_agent.add_dialogue(temp)
+	
+func hide_dialogue():
+	dialogue_agent.remove_dialogue()
 	
 func play_turn():
 	$AnimationPlayer.stop()
@@ -37,16 +67,14 @@ func play_turn():
 	$Event.discard()
 	
 	for agent in get_agents():
-		agent.remove_dialogue()
 		agent.move()
 
 	yield($AnimationPlayer, "animation_finished")
 
 	for agent in get_agents():
 		agent.stop()
-		#agent.add_dialogue("ceci est un text")
 	
-	add_fatigue_to_agents(regular_strain)
+	add_fatigue_to_agents(regular_strain) 
 	
 	show_event(get_random_event())
 	
@@ -128,6 +156,10 @@ func _on_Event_selected_option(event, option):
 		print("Roll successful")
 	else:
 		print("Roll failed")
+	
+	mem_curr_event = event
+	mem_next_event = success
+	mem_chosen = option
 	
 	run_event(next_event)
 		
