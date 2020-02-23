@@ -54,7 +54,7 @@ position = Vector2( -64, -288 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "move"
-frame = 19
+frame = 4
 playing = true
 
 [node name="items" type="Node2D" parent="."]

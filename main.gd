@@ -12,6 +12,7 @@ var events_chances = {
 
 func _ready():
 	randomize()
+	init_items()
 	play_turn()
 	
 func play_turn():
@@ -25,7 +26,7 @@ func play_turn():
 
 	for agent in $agents.get_children():
 		agent.stop()
-		agent.add_dialogue("ceci est un text")
+		#agent.add_dialogue("ceci est un text")
 	
 	var event = get_random_event()
 	print(event)
@@ -48,3 +49,10 @@ func _on_NextButton_pressed():
 		return
 	
 	play_turn()
+
+func init_items():
+	var child_count = $agents.get_child_count()
+	var i = 0
+	for value in states.ITEMS.values():
+		$agents.get_child(i % child_count).add_item(value)
+		i+=1

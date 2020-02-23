@@ -2,13 +2,28 @@ extends Node2D
 
 signal drop
 
+
 var drag_mouse = false
 var last_position = Vector2()
 
-export var id = -1
+export(states.ITEMS) var id = 0 setget set_id
+
+var textures = {
+	states.ITEMS.GUN: "res://items/assets/outils-03.png",
+	states.ITEMS.FURNACE: "res://items/assets/outils-04.png",
+	states.ITEMS.KNIFE: "res://items/assets/outils-02.png",
+	states.ITEMS.PICK: "res://items/assets/outils-05.png",
+	states.ITEMS.SHOVEL: "res://items/assets/outils-01.png"
+}
+
+func set_id(_id):
+	id = _id
+	var texture = textures[id]
+	if(texture):
+		$Sprite.texture = load(texture)
 
 func _process(delta):
-	if drag_mouse:
+	if drag_mouse and not is_queued_for_deletion():
 		global_position = get_viewport().get_mouse_position()
 
 func _on_Area2D_input_event(viewport, event, shape_idx):

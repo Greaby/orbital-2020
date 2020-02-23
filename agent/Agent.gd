@@ -4,6 +4,7 @@ var items = []
 
 func _ready():
 	$AnimatedSprite.play("default")
+	hide_items_ui()
 
 
 func move():
@@ -35,26 +36,34 @@ func display_items_ui():
 			drop.connect("drop", self, "_on_zone_drop")
 			spawn.add_child(drop)
 		else:
+			for child in spawn.get_children():
+				child.queue_free()
+			
 			var item = load("res://items/Item.tscn").instance()
+			item.id = items[i]
 			item.connect("drop", self, "_on_item_drop")
 			spawn.add_child(item)
 
 func hide_items_ui():
-	$items.hide()
 	for item in $items.get_children():
-		var child = item.get_child(0)
-		if child:
+		for child in item.get_children():
 			child.queue_free()
+	$items.hide()
 
-
-func _on_zone_drop(item):
-	item.queue_free()
-	items.append(item.id)
+func add_item(id):
+	items.append(id)
 	hide_items_ui()
 	display_items_ui()
-	
-func _on_item_drop(item):
-	var key = items.find(item.id)
+
+func remove_item(id):
+	var key = items.find(id)
 	items.remove(key)
 	hide_items_ui()
 	display_items_ui()
+
+func _on_zone_drop(item):
+	item.queue_free()
+	add_item(item.id)
+
+func _on_item_drop(item):
+	remove_item(item.id)
