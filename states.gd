@@ -417,7 +417,7 @@ var sols_dialogue = {
 	EVENTS.BEAST: {
 		SOLS.ATTACK_GUN: {
 			false: "Comment avons-nous pu le rater?",
-			true: "HAAA! Prends ça!"
+			true: "Heureusement que nous avons une arme."
 		},
 		SOLS.ATTACK_KNIFE: {
 			false: "Il m'a presque dévoré.",
@@ -465,7 +465,7 @@ var sols_dialogue = {
 var progress_dialogue = {
 	"night" : [
 		"Nous devons nous dépêcher!",
-		"Si la nuit tombe, je ne donne pas cher de notre peau...",
+		"On risque de se blesser plus facilement pendant la nuit.",
 		"Je n'y vois rien, c'est dur d'avancer."
 	],
 	"death" : {
