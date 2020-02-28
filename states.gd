@@ -21,17 +21,19 @@ enum EVENTS {
 	GAIN_TIME, # 16
 	ADD_FATIGUE, # 17
 	PICKUP_ITEM, # 18
+	ALL_DEAD, # 19
+	GAME_OVER, # 20
 }
 
 var events_probas = {
-	EVENTS.NO: 15,
-	EVENTS.AVALANCHE: 2,
+	EVENTS.NO: 20,
+	EVENTS.AVALANCHE: 5,
 	EVENTS.HOLE: 5,
-	EVENTS.FALL: 10,
-	EVENTS.STORM: 2,
-	EVENTS.BEAST: 10,
+	EVENTS.FALL: 8,
+	EVENTS.STORM: 5,
+	EVENTS.BEAST: 6,
 	EVENTS.CAMP: 0,
-	EVENTS.SHORTCUT: 8,
+	EVENTS.SHORTCUT: 10,
 	EVENTS.WIN: 0,
 	EVENTS.ANY: 0,
 	EVENTS.HARM: 0,
@@ -54,7 +56,8 @@ enum SOLS {
 	JUMP,
 	ABANDON,
 	WIN,
-	HELP
+	HELP,
+	GAME_OVER,
 }
 
 enum ITEMS {
@@ -106,6 +109,10 @@ var event_descr = {
 		"Raccourci?",
 		"Vous pensez pouvoir traverser le long d'une corniche pour gagner du temps. Elle n'est pas très large et quelqu'un risquerait de tomber."
 	],
+	EVENTS.ALL_DEAD: [
+		"Nous avons échoué",
+		"Nous étions quatre et notre mission était de remettre un message. Malgré nos efforts, la fatigue, le froid et la montagne ont eu raison de nous. Avec nous disparaît tout espoir."
+	]
 }
 
 var sol_descr = {
@@ -124,7 +131,8 @@ var sol_descr = {
 	SOLS.JUMP: "Essayer de sauter par-dessus la crevasse",
 	SOLS.ABANDON: "Sacrifier une personne pour distraire la créature",
 	SOLS.HELP: "Tirer en l'air en espérant que quelqu'un vous entende",
-	SOLS.WIN: "Remettre le message"
+	SOLS.WIN: "Remettre le message",
+	SOLS.GAME_OVER: "Fin"
 }
 
 var outcomes_descr = {
@@ -230,6 +238,9 @@ var sol_probas = {
 		SOLS.GO: 100,
 		SOLS.GO_AROUND: 50
 	},
+	EVENTS.ALL_DEAD: {
+		SOLS.GAME_OVER: 100
+	}
 }
 
 var sol_outcomes = {
@@ -345,6 +356,12 @@ var sol_outcomes = {
 			true: EVENTS.NO,
 		}
 	},
+	EVENTS.ALL_DEAD: {
+		SOLS.GAME_OVER: {
+			false: EVENTS.GAME_OVER,
+			true: EVENTS.GAME_OVER,
+		}
+	}
 }
 
 var sols_dialogue = {

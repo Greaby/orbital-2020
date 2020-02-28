@@ -7,9 +7,9 @@ var current_time = 10.0
 var night_alpha = 0
 
 # Fatigue to add on each round
-var regular_strain = 10
+var regular_strain = 9
 # Fatigue to heal on each regular break
-var rest_value_regular = 5
+var rest_value_regular = 6
 # Fatigue to heal on each break with furnace
 var rest_value_plus = 8
 
@@ -141,7 +141,7 @@ func set_night_level(animate=true):
 			
 func pass_time(delay):
 	current_time = current_time + delay
-	if current_time > 24:
+	if current_time >= 24:
 		current_time -= 24
 		
 	$Time.text = str(current_time)
@@ -162,16 +162,27 @@ func play_turn():
 	for agent in get_agents():
 		agent.stop()
 	
-	add_fatigue_to_agents(regular_strain) 
+	add_fatigue_to_agents(regular_strain)
 	
-	show_event(get_random_event())
+	var all_dead = true
+	for agent in get_agents():
+		if agent.fatigue < agent.max_fatigue:
+			all_dead = false
+			break
+
+	var event = (
+		get_random_event() if (get_agents() and not all_dead) else States.EVENTS.ALL_DEAD
+	)
+
+	show_event(event)
 	
 func show_event(event):
 	var options = States.sol_outcomes[event]
 	var available_options = {}
 	var event_description = States.event_descr.get(event)
-	var event_title = event_description[0] if event_description else "Titre"
-	var event_text = event_description[1] if event_description else "Texte"
+	assert(event_description)
+	var event_title = event_description[0]
+	var event_text = event_description[1]
 	
 	for option in options:		
 		# If this action has no way of happening, skip it
@@ -206,9 +217,6 @@ func has_any_item(items):
 	return false
 	
 func get_agents():
-	if agents_node.get_child_count() == 0:
-		get_tree().change_scene("res://GameOver.tscn")
-	
 	return agents_node.get_children()
 	
 func get_random_event():
@@ -301,7 +309,7 @@ func kill_random_agent():
 		progress["health"].remove(agent_id)
 	
 	if agents.size() == 1:
-		get_tree().change_scene("res://GameOver.tscn")
+		game_over()
 	
 func run_event(event):
 	print("Running event ", event)
@@ -324,6 +332,8 @@ func run_event(event):
 			time = shortcut_time
 		States.EVENTS.HARM:
 			tire_agent(get_random_agent(), 10)
+		States.EVENTS.GAME_OVER:
+			game_over()
 			
 	return time
 
@@ -336,3 +346,6 @@ func _on_Event_outcome_continue(next_event):
 		get_tree().change_scene("res://End.tscn")
 	
 	play_turn()
+	
+func game_over():
+	get_tree().change_scene("res://GameOver.tscn")
