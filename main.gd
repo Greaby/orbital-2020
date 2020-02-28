@@ -236,14 +236,19 @@ func init_items():
 func _on_Event_selected_option(event, option):
 	print("Player selected option ", option)
 	var success_chance = States.sol_probas[event].get(option, null)
-	var success = randi() % 100 <= success_chance
+	
+	if get_night_level() >= 50:
+		success_chance /= 2
+		
+	var roll = randi() % 100
+	var success = roll <= success_chance
 	var next_event = States.sol_outcomes[event][option][success]
 	var outcome_description = States.outcomes_descr.get(option, null)
 	
 	if success:
-		print("Roll successful")
+		print("Roll successful (difficulty ", success_chance, ", rolled ", roll, ")")
 	else:
-		print("Roll failed")
+		print("Roll failed (difficulty ", success_chance, ", rolled ", roll, ")")
 	
 	mem_curr_event = event
 	mem_next_event = success
