@@ -2,13 +2,14 @@ extends Node2D
 
 var items = []
 var fatigue = 0
+var max_fatigue = 100
 
 func set_fatigue(fatigue_):
 	print("Setting agent fatigue to ", fatigue_)
 	fatigue = fatigue_
 	$FatigueLabel.text = "Fatigue: " + str(fatigue_)
 	
-	if fatigue_ >= 100:
+	if fatigue_ >= max_fatigue:
 		queue_free()
 
 func _ready():
