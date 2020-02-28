@@ -3,7 +3,7 @@ extends Node2D
 export(int) var steps_to_win = 20
 var current_step = 1
 # Current time as hour of the day
-var current_time = 5.0
+var current_time = 10.0
 var night_alpha = 0
 
 # Fatigue to add on each round
@@ -12,6 +12,10 @@ var regular_strain = 10
 var rest_value_regular = 5
 # Fatigue to heal on each break with furnace
 var rest_value_plus = 8
+
+var delay_time = 1.5
+var delay_time_long = 2
+var shortcut_time = 0.5
 
 var mem_curr_event = null
 var mem_next_event = null
@@ -32,9 +36,11 @@ var pentes = [
 	"res://terrain/pente-03.png"
 ]
 
-var delay_time = 1.5
-var delay_time_long = 2
-var shortcut_time = 0.5
+# Nodes
+onready var scene_node = $SceneContainer;
+onready var agents_node = scene_node.get_node("agents");
+onready var background_node = scene_node.get_node("Background");
+onready var terrain_node = scene_node.get_node("terrain");
 
 func _ready():
 	randomize()
@@ -44,7 +50,7 @@ func _ready():
 
 
 func animation_mountain():
-	$BackgroundTween.interpolate_property($Background, "position", $Background.position, $Background.position + Vector2(0, 40), 10, Tween.TRANS_LINEAR)
+	$BackgroundTween.interpolate_property(background_node, "position", background_node.position, background_node.position + Vector2(0, 40), 10, Tween.TRANS_LINEAR)
 	$BackgroundTween.start()
 
 func hide_items():
@@ -56,7 +62,7 @@ func show_items():
 		agent.display_items_ui()
 
 func change_terrain():
-	$terrain.texture = load(pentes[randi() % pentes.size()])
+	terrain_node.texture = load(pentes[randi() % pentes.size()])
 	
 func display_dialogue(type):
 	var agents = get_agents()
@@ -78,7 +84,7 @@ func display_dialogue(type):
 		if current_step / steps_to_win > progress["distance"]: # DISTANCE
 			enqueue_line(States.progress_dialogue["distance"][progress["distance"]])
 			progress["distance"] = progress["distance"] + 1
-		if !progress["night"] and night_alpha > 0.8: # NIGHT
+		if !progress["night"] and night_alpha >= 0.4: # NIGHT
 			enqueue_line(States.progress_dialogue["night"])
 			progress["night"] = true
 		elif len(get_agents()) < progress["death"]: # DEATH
@@ -103,38 +109,35 @@ func enqueue_line(lines):
 func hide_dialogue():
 	if dialogue_agent:
 		dialogue_agent.remove_dialogue()
-	
-func get_night_alpha():
-	var alpha = 0
+
+# Return the night level as a percentage
+func get_night_level():
+	var level = 0
 	
 	if current_time >= 17:
-		alpha = 1.0 / float(max(1, 24 - current_time))
+		level = 100 / float(max(1, 25 - current_time))
 	elif current_time <= 5:
-		alpha = 1 - 1.0 / float(max(1, 6 - current_time))
+		level = 100 - 100 / float(max(1, 6 - current_time))
 	
-	# Make sure alpha doesn't exceed 0.8 or the player won't see anything
-	alpha = min(0.8, alpha)
+	return level
 	
-	return alpha
+func get_night_alpha():
+	# Make sure alpha doesn't exceed 0.6 or the player won't see anything
+	return min(0.6, get_night_level() / 100)
 		
 func set_night_level(animate=true):
-	var night = $Night
-	var alpha = 0
-	
-	alpha = get_night_alpha()
-		
-	var new_color = night.color
-	new_color.a = alpha
+	var alpha = 1 - get_night_alpha()
+	var new_color = Color(alpha, alpha, alpha)
 
 	if animate:
 		var tween = $Night/Tween
 		tween.interpolate_property(
-			night, "color", night.color, new_color, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN
+			scene_node, "modulate", scene_node.modulate, new_color, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN
 		)
 		if not tween.is_active():
 			tween.start()
 	else:
-		night.color = new_color
+		scene_node.modulate = new_color
 			
 func pass_time(delay):
 	current_time = current_time + delay
@@ -203,10 +206,10 @@ func has_any_item(items):
 	return false
 	
 func get_agents():
-	if $agents.get_child_count() == 0:
+	if agents_node.get_child_count() == 0:
 		get_tree().change_scene("res://GameOver.tscn")
 	
-	return $agents.get_children()
+	return agents_node.get_children()
 	
 func get_random_event():
 	var event_list = []
@@ -224,23 +227,28 @@ func _on_NextButton_pressed():
 	play_turn()
 
 func init_items():
-	var child_count = $agents.get_child_count()
+	var child_count = agents_node.get_child_count()
 	var i = 0
 	for value in States.ITEMS.values():
-		$agents.get_child(i % child_count).add_item(value)
+		agents_node.get_child(i % child_count).add_item(value)
 		i+=1
 
 func _on_Event_selected_option(event, option):
 	print("Player selected option ", option)
 	var success_chance = States.sol_probas[event].get(option, null)
-	var success = randi() % 100 <= success_chance
+	
+	if get_night_level() >= 50:
+		success_chance /= 2
+		
+	var roll = randi() % 100
+	var success = roll <= success_chance
 	var next_event = States.sol_outcomes[event][option][success]
 	var outcome_description = States.outcomes_descr.get(option, null)
 	
 	if success:
-		print("Roll successful")
+		print("Roll successful (difficulty ", success_chance, ", rolled ", roll, ")")
 	else:
-		print("Roll failed")
+		print("Roll failed (difficulty ", success_chance, ", rolled ", roll, ")")
 	
 	mem_curr_event = event
 	mem_next_event = success
@@ -289,7 +297,7 @@ func kill_random_agent():
 	if agents and agents.size() > 1:
 		var agent_id = randi() % (agents.size())
 		print("Killing agent ", agent_id)
-		$agents.remove_child($agents.get_child(agent_id))
+		agents_node.remove_child(agents_node.get_child(agent_id))
 		progress["health"].remove(agent_id)
 	
 	if agents.size() == 1:
